@@ -614,12 +614,12 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Energy Saved</CardTitle>
                 <CardDescription>
-                  From 2.4 kWh to 1.13 kWh
+                  From our personal site optimization
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center space-y-2">
-                  <div className="text-4xl font-bold text-green-600">1.27 kWh</div>
+                  <div className="text-4xl font-bold text-green-600">0.3 kWh</div>
                   <div className="text-sm text-muted-foreground">
                     Energy reduction
                   </div>
@@ -635,12 +635,12 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>CO₂ Reduced</CardTitle>
                 <CardDescription>
-                  From 1.6g to 0.92g per prompt
+                  From our personal site optimization
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center space-y-2">
-                  <div className="text-4xl font-bold text-blue-600">0.68g</div>
+                  <div className="text-4xl font-bold text-blue-600">0.125g</div>
                   <div className="text-sm text-muted-foreground">
                     Carbon reduction
                   </div>
@@ -653,10 +653,10 @@ export default function LandingPage() {
           <div className="mt-16">
             <div className="text-center space-y-4 mb-12">
               <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                Scale Impact: 3.5M v0 Users
+                Scale Impact: 3.5M Vercel Users
               </h3>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                This is just the impact from 1 user. If v0 implemented this optimization for all 3.5 million users, the daily savings would be:
+                This is just the impact from our personal site. If Vercel implemented this optimization for all 3.5 million users, the daily savings would be:
               </p>
             </div>
 
@@ -674,9 +674,9 @@ export default function LandingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center space-y-2">
-                    <div className="text-3xl font-bold text-green-600">4.4M kWh</div>
+                    <div className="text-3xl font-bold text-green-600">1.05M kWh</div>
                     <div className="text-sm text-muted-foreground">
-                      Equivalent to 73.5M hours of 60W bulb usage
+                      Equivalent to 17.5M hours of 60W bulb usage
                     </div>
                   </div>
                 </CardContent>
@@ -695,9 +695,9 @@ export default function LandingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center space-y-2">
-                    <div className="text-3xl font-bold text-blue-600">1,631 tons</div>
+                    <div className="text-3xl font-bold text-blue-600">0.44 tons</div>
                     <div className="text-sm text-muted-foreground">
-                      Equivalent to 77,700 trees absorbing CO₂ for a year
+                      Equivalent to 20 trees absorbing CO₂ for a year
                     </div>
                   </div>
                 </CardContent>
@@ -716,7 +716,7 @@ export default function LandingPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center space-y-2">
-                    <div className="text-3xl font-bold text-yellow-600">$1.33M</div>
+                    <div className="text-3xl font-bold text-yellow-600">$315K</div>
                     <div className="text-sm text-muted-foreground">
                       At $0.30/kWh electricity rate
                     </div>
@@ -737,35 +737,35 @@ export default function LandingPage() {
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">Energy Saved (kWh)</span>
-                          <span className="font-semibold">4,445,000 kWh</span>
+                          <span className="font-semibold">1,050,000 kWh</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">60W Bulb Usage (hours)</span>
-                          <span className="font-semibold">73,500,000 hours</span>
+                          <span className="font-semibold">17,500,000 hours</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">CO₂ Saved (grams)</span>
-                          <span className="font-semibold">1,631,000,000 g</span>
+                          <span className="font-semibold">437,500 g</span>
                         </div>
                       </div>
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">CO₂ Saved (metric tons)</span>
-                          <span className="font-semibold">1,631 metric tons</span>
+                          <span className="font-semibold">0.44 metric tons</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">Tree Absorption (years)</span>
-                          <span className="font-semibold">77,700 trees/year</span>
+                          <span className="font-semibold">20 trees/year</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-muted-foreground">Daily Cost Savings</span>
-                          <span className="font-semibold text-yellow-600">$1,333,500</span>
+                          <span className="font-semibold text-yellow-600">$315,000</span>
                         </div>
                       </div>
                     </div>
                     <div className="pt-4 border-t border-border/30">
                       <p className="text-sm text-muted-foreground">
-                        <strong>Annual potential:</strong> $486M+ in energy cost savings alone
+                        <strong>Annual potential:</strong> $115M+ in energy cost savings alone
                       </p>
                     </div>
                   </div>
