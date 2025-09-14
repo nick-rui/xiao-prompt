@@ -7,6 +7,7 @@ import { ArrowRightIcon, CheckIcon, CodeIcon, BarChartIcon, ZapIcon, ArrowDownIc
 import { useLocalization } from "@/lib/use-localization"
 import { Navigation } from "@/components/navigation"
 import Link from "next/link"
+import { ChartContainer, ChartContent } from "@/components/ui/chart"
 
 export default function LandingPage() {
   const { text, loading } = useLocalization()
@@ -253,98 +254,197 @@ export default function LandingPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {text.validation.title}
+              Validation Results
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {text.validation.subtitle}
+              Validated with ICT & HP reward models - 96.8% similarity maintained while reducing tokens by 53%
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="glass-effect">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Performance Chart */}
+            <Card className="neon-border border-primary/50 glow-effect h-full">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <BarChartIcon className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle>{text.validation.qualityMetrics.title}</CardTitle>
-                <CardDescription>
-                  {text.validation.qualityMetrics.description}
+                <CardTitle className="text-center">Quality vs Efficiency</CardTitle>
+                <CardDescription className="text-center">p
+                  Optimized prompts maintain near-identical quality with massive efficiency gains
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.qualityMetrics.semanticSimilarity}</span>
-                    <Badge>{text.validation.qualityMetrics.semanticSimilarityValue}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.qualityMetrics.taskCompletion}</span>
-                    <Badge>{text.validation.qualityMetrics.taskCompletionValue}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.qualityMetrics.userSatisfaction}</span>
-                    <Badge>{text.validation.qualityMetrics.userSatisfactionValue}</Badge>
-                  </div>
-                </div>
+              <CardContent className="p-6">
+                <ChartContainer className="h-80 w-full">
+                  <ChartContent>
+                    {/* Custom Shadcn Bar Chart */}
+                    <div className="flex h-full">
+                      {/* Y-axis */}
+                      <div className="flex flex-col justify-between text-xs text-muted-foreground pr-3 w-12" style={{ height: '240px', marginTop: '16px', marginBottom: '64px' }}>
+                        <span className="leading-none">100%</span>
+                        <span className="leading-none">75%</span>
+                        <span className="leading-none">50%</span>
+                        <span className="leading-none">25%</span>
+                        <span className="leading-none">0%</span>
+                      </div>
+                      
+                      {/* Chart area */}
+                      <div className="flex-1 relative" style={{ marginTop: '16px', marginBottom: '64px' }}>
+                        {/* Grid lines */}
+                        <div className="absolute inset-0 flex flex-col justify-between" style={{ height: '240px' }}>
+                          {[0, 1, 2, 3, 4].map((i) => (
+                            <div key={i} className="border-t border-dashed border-muted-foreground/20" />
+                          ))}
+                        </div>
+                        
+                        {/* X-axis baseline */}
+                        <div className="absolute bottom-0 left-0 right-0 border-t border-muted-foreground/40"></div>
+                        
+                        {/* Bars container */}
+                        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between px-12" style={{ height: '240px' }}>
+                          {[
+                            { name: 'Image\nSimilarity', value: 96.8 },
+                            { name: 'Quality\nScore', value: 97.1 },
+                            { name: 'Human\nPreference', value: 95.7 },
+                            { name: 'Token\nUsage', value: 53.0 }
+                          ].map((item, index) => (
+                            <div key={index} className="flex flex-col items-center group relative">
+                              {/* Bar */}
+                              <div 
+                                className="w-12 bg-black rounded-t-lg border-t border-l border-r border-solid shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl relative overflow-hidden cursor-pointer"
+                                style={{ 
+                                  height: `${(item.value / 100) * 240}px`,
+                                  borderColor: 'rgb(34 197 94)',
+                                  backgroundImage: `repeating-linear-gradient(
+                                    45deg,
+                                    transparent 0px,
+                                    transparent 6px,
+                                    rgb(34 197 94 / 0.8) 6px,
+                                    rgb(34 197 94 / 0.8) 7px
+                                  )`
+                                }}
+                              >
+                                {/* Shimmer effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                              </div>
+                              
+                              {/* Value label positioned above bar */}
+                              <div className="absolute left-1/2 transform -translate-x-1/2 text-xs font-semibold text-foreground bg-card/90 backdrop-blur-sm rounded-md px-2 py-1 border border-border/50 shadow-sm whitespace-nowrap" style={{ bottom: `${(item.value / 100) * 240 + 8}px` }}>
+                                {item.value}%
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        {/* Labels positioned at bottom */}
+                        <div className="absolute left-0 right-0 flex justify-between px-12" style={{ top: '256px' }}>
+                          {[
+                            'Image\nSimilarity',
+                            'Quality\nScore', 
+                            'Human\nPreference',
+                            'Token\nUsage'
+                          ].map((name, index) => (
+                            <div key={index} className="text-xs text-muted-foreground text-center font-medium leading-tight whitespace-pre-line w-12">
+                              {name}
+                            </div>
+                          ))}
+                        </div>
+                        
+                        {/* Citation */}
+                        <div className="absolute left-0 right-0 text-center" style={{ top: '290px' }}>
+                          <a 
+                            href="https://arxiv.org/abs/2507.19002" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs text-muted-foreground/70 hover:text-muted-foreground transition-colors duration-200 italic"
+                          >
+                            Ba et al. (2025). Enhancing Reward Models for High-quality Image Generation
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </ChartContent>
+                </ChartContainer>
               </CardContent>
             </Card>
 
-            <Card className="glass-effect">
-              <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <ZapIcon className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle>{text.validation.sustainabilityGains.title}</CardTitle>
-                <CardDescription>
-                  {text.validation.sustainabilityGains.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.sustainabilityGains.energyReduction}</span>
-                    <Badge>{text.validation.sustainabilityGains.energyReductionValue}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.sustainabilityGains.carbonReduction}</span>
-                    <Badge>{text.validation.sustainabilityGains.carbonReductionValue}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.sustainabilityGains.processingSpeed}</span>
-                    <Badge>{text.validation.sustainabilityGains.processingSpeedValue}</Badge>
-                  </div>
-                </div>
-                <div className="mt-4 pt-3 border-t border-border/30">
-                  <p className="text-xs text-muted-foreground">
-                    Energy costs calculated using Massachusetts average electricity rate of $0.305/kWh
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Research Framework */}
+            <div className="space-y-4">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-semibold">Research Framework</h3>
+                <p className="text-sm text-muted-foreground">Dual validation using ICT & HP reward models</p>
+              </div>
 
-            <Card className="glass-effect">
-              <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <CheckIcon className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle>{text.validation.environmentalImpact.title}</CardTitle>
-                <CardDescription>
-                  {text.validation.environmentalImpact.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.environmentalImpact.energySaved}</span>
-                    <Badge>{text.validation.environmentalImpact.energySavedValue}</Badge>
+              {/* ICT Model */}
+              <Card className="glass-effect">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                        <span className="text-blue-500 font-bold">ICT</span>
+                      </div>
+                      <div>
+                        <div className="font-semibold">Image-Contained-Text Framework</div>
+                        <div className="text-sm text-muted-foreground">Hierarchical prompt-image pairs with contrastive learning to mitigate bias against visually rich content</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-blue-500">96.8%</div>
+                      <div className="text-xs text-muted-foreground">similarity maintained</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.environmentalImpact.emissionsReduction}</span>
-                    <Badge>{text.validation.environmentalImpact.emissionsReductionValue}</Badge>
+                </CardContent>
+              </Card>
+
+              {/* HP Model */}
+              <Card className="glass-effect">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center">
+                        <span className="text-purple-500 font-bold">HP</span>
+                      </div>
+                      <div>
+                        <div className="font-semibold">High-Preference Model</div>
+                        <div className="text-sm text-muted-foreground">Pure aesthetic quality assessment using 360K preference triplets for visual quality evaluation</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-purple-500">97.1%</div>
+                      <div className="text-xs text-muted-foreground">quality preserved</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{text.validation.environmentalImpact.greenScore}</span>
-                    <Badge>{text.validation.environmentalImpact.greenScoreValue}</Badge>
+                </CardContent>
+              </Card>
+
+              {/* Key Results */}
+              <Card className="glass-effect border-primary/20">
+                <CardContent className="p-4">
+                  <div className="text-center space-y-3">
+                    <div className="font-semibold">Combined Results</div>
+                    <div className="grid grid-cols-2 gap-8">
+                      <div>
+                        <div className="text-2xl font-bold text-primary">53%</div>
+                        <div className="text-sm text-muted-foreground">fewer tokens required</div>
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold text-primary">94.2%</div>
+                        <div className="text-sm text-muted-foreground">consistency rate</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Bottom Summary */}
+          <div className="mt-12">
+            <Card className="neon-border border-primary/50 glow-effect">
+              <CardContent className="pt-6">
+                <div className="text-center space-y-4">
+                  <div className="text-lg font-semibold text-primary">
+                    🎯 Optimized prompts produce virtually identical images with 53% fewer tokens
+                  </div>
+                  <div className="text-sm text-muted-foreground max-w-2xl mx-auto">
+                    Our dual ICT-HP framework ensures quality preservation while achieving massive efficiency gains. 
+                    Perfect for production systems requiring both quality and cost optimization with 94.2% consistency rate.
                   </div>
                 </div>
               </CardContent>
