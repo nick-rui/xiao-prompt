@@ -355,7 +355,7 @@ export function Playground() {
                     <Button
                       onClick={saveToDatabase}
                       disabled={isSaving}
-                      className={`w-full py-3 transition-all duration-300 transform ${
+                      className={`w-full py-2.5 transition-all duration-300 transform ${
                         isSaving 
                           ? 'scale-95 opacity-75 cursor-not-allowed bg-primary/50' 
                           : saveSuccess 
