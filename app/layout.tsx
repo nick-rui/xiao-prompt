@@ -17,9 +17,14 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Prompt Optimization Dashboard",
+  title: "XiaoPrompt - AI Efficiency Platform",
   description: "Track and analyze your AI prompt optimization results to improve efficiency and reduce costs.",
   generator: "v0.app",
+  icons: {
+    icon: "/xiaoprompt_logo.png",
+    shortcut: "/xiaoprompt_logo.png",
+    apple: "/xiaoprompt_logo.png",
+  },
 }
 
 export default function RootLayout({
