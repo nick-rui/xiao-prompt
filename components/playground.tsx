@@ -28,6 +28,7 @@ export function Playground() {
   const [copied, setCopied] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
+  const [buttonClicked, setButtonClicked] = useState(false)
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -141,6 +142,10 @@ export function Playground() {
   const saveToDatabase = async () => {
     if (!result) return
 
+    // Immediate visual feedback
+    setButtonClicked(true)
+    setTimeout(() => setButtonClicked(false), 150)
+    
     setIsSaving(true)
     setSaveSuccess(false)
 
@@ -166,7 +171,7 @@ export function Playground() {
       if (response.ok) {
         console.log("Successfully saved to database")
         setSaveSuccess(true)
-        setTimeout(() => setSaveSuccess(false), 3000) // Reset after 3 seconds
+        setTimeout(() => setSaveSuccess(false), 4000) // Reset after 4 seconds
       } else {
         console.error("Failed to save to database")
       }
@@ -347,26 +352,44 @@ export function Playground() {
                       onClick={saveToDatabase}
                       disabled={isSaving}
                       variant="outline"
-                      className={`w-full py-2.5 transition-all duration-200 ${
-                        saveSuccess 
-                          ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100' 
-                          : 'bg-transparent hover:bg-muted/50'
+                      className={`w-full py-3 transition-all duration-300 transform ${
+                        isSaving 
+                          ? 'scale-95 opacity-75 cursor-not-allowed' 
+                          : saveSuccess 
+                          ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200 scale-105 shadow-lg' 
+                          : buttonClicked
+                          ? 'scale-90 bg-blue-50 border-blue-200'
+                          : 'bg-transparent hover:bg-muted/50 hover:scale-105 hover:shadow-md active:scale-95'
                       }`}
                       size="lg"
                     >
                       {isSaving ? (
                         <>
-                          <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full mr-2" />
-                          Saving...
+                          <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full mr-3" />
+                          <span className="font-medium">Saving to Dashboard...</span>
                         </>
                       ) : saveSuccess ? (
                         <>
-                          ✓ Saved to Dashboard!
+                          <div className="animate-bounce mr-2">✓</div>
+                          <span className="font-semibold">Successfully Saved!</span>
                         </>
                       ) : (
-                        'Save to Dashboard'
+                        <>
+                          <span className="mr-2">💾</span>
+                          <span className="font-medium">Save to Dashboard</span>
+                        </>
                       )}
                     </Button>
+                    {saveSuccess && (
+                      <div className="mt-3 text-center animate-in slide-in-from-top-2 duration-500">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
+                          <p className="text-sm text-green-700 font-semibold">
+                            ✨ Saved to Dashboard Successfully!
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (
