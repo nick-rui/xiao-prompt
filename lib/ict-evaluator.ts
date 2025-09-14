@@ -1,8 +1,5 @@
-import { pipeline, env } from '@huggingface/transformers';
-
-// Configure transformers to use local models
-env.allowRemoteModels = false;
-env.allowLocalModels = true;
+// Note: Hugging Face transformers removed for Vercel compatibility
+// Using fallback implementation for serverless deployment
 
 export interface ICTEvaluationResult {
   score: number;
@@ -29,16 +26,9 @@ export class ICTEvaluator {
   async initialize() {
     if (this.initialized) return;
 
-    try {
-      // Initialize CLIP model for ICT evaluation
-      // Note: This is a simplified version - in production you'd want to use the exact ICT model
-      this.clipModel = await pipeline('zero-shot-image-classification', 'Xenova/clip-vit-base-patch32');
-      this.initialized = true;
-      console.log('ICT Evaluator initialized successfully');
-    } catch (error) {
-      console.error('Failed to initialize ICT Evaluator:', error);
-      throw new Error('ICT Evaluator initialization failed');
-    }
+    // Using fallback implementation for Vercel compatibility
+    console.log('ICT Evaluator initialized with fallback implementation');
+    this.initialized = true;
   }
 
   async evaluateTextImageAlignment(input: ICTEvaluationInput): Promise<ICTEvaluationResult> {
