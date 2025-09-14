@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { SettingsIcon, UserIcon, LogOutIcon, CpuIcon, BarChart3Icon, HistoryIcon, CogIcon } from "@/components/icons"
+import { SettingsIcon, UserIcon, LogOutIcon, CpuIcon } from "@/components/icons"
 
 export function DashboardHeader() {
   return (
@@ -17,37 +17,6 @@ export function DashboardHeader() {
               <span className="text-xs text-muted-foreground font-mono tracking-wider">AI EFFICIENCY PLATFORM</span>
             </div>
           </div>
-
-          <nav className="hidden md:flex items-center space-x-1">
-            <Button
-              variant="ghost"
-              className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
-            >
-              <BarChart3Icon className="h-4 w-4" />
-              Overview
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
-            >
-              <BarChart3Icon className="h-4 w-4" />
-              Analytics
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
-            >
-              <HistoryIcon className="h-4 w-4" />
-              History
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
-            >
-              <CogIcon className="h-4 w-4" />
-              Settings
-            </Button>
-          </nav>
         </div>
 
         <DropdownMenu>
