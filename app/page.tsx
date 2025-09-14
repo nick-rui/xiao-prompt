@@ -266,7 +266,7 @@ export default function LandingPage() {
             <Card className="neon-border border-primary/50 glow-effect h-full">
               <CardHeader>
                 <CardTitle className="text-center">Quality vs Efficiency</CardTitle>
-                <CardDescription className="text-center">
+                <CardDescription className="text-center">p
                   Optimized prompts maintain near-identical quality with massive efficiency gains
                 </CardDescription>
               </CardHeader>
