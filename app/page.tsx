@@ -648,6 +648,131 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Scale Impact Section */}
+          <div className="mt-16">
+            <div className="text-center space-y-4 mb-12">
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                Scale Impact: 3.5M v0 Users
+              </h3>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                This is just the impact from 1 user. If v0 implemented this optimization for all 3.5 million users, the daily savings would be:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Energy Savings at Scale */}
+              <Card className="glass-effect border-green-500/20">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                    <div className="text-2xl">⚡</div>
+                  </div>
+                  <CardTitle>Energy Saved</CardTitle>
+                  <CardDescription>
+                    Daily savings across all users
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center space-y-2">
+                    <div className="text-3xl font-bold text-green-600">4.4M kWh</div>
+                    <div className="text-sm text-muted-foreground">
+                      Equivalent to 73.5M hours of 60W bulb usage
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* CO₂ Savings at Scale */}
+              <Card className="glass-effect border-blue-500/20">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
+                    <div className="text-2xl">🌱</div>
+                  </div>
+                  <CardTitle>CO₂ Reduced</CardTitle>
+                  <CardDescription>
+                    Daily carbon savings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center space-y-2">
+                    <div className="text-3xl font-bold text-blue-600">1,631 tons</div>
+                    <div className="text-sm text-muted-foreground">
+                      Equivalent to 77,700 trees absorbing CO₂ for a year
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Cost Savings at Scale */}
+              <Card className="glass-effect border-yellow-500/20">
+                <CardHeader>
+                  <div className="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center mb-4">
+                    <div className="text-2xl">💰</div>
+                  </div>
+                  <CardTitle>Cost Saved</CardTitle>
+                  <CardDescription>
+                    Daily energy cost savings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center space-y-2">
+                    <div className="text-3xl font-bold text-yellow-600">$1.33M</div>
+                    <div className="text-sm text-muted-foreground">
+                      At $0.30/kWh electricity rate
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Scale Impact Summary */}
+            <div className="mt-12">
+              <Card className="neon-border border-primary/50 glow-effect">
+                <CardContent className="p-8">
+                  <div className="text-center space-y-4">
+                    <h4 className="text-xl font-bold text-primary">
+                      🚀 One Day's Impact Across 3.5M Users
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Energy Saved (kWh)</span>
+                          <span className="font-semibold">4,445,000 kWh</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">60W Bulb Usage (hours)</span>
+                          <span className="font-semibold">73,500,000 hours</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">CO₂ Saved (grams)</span>
+                          <span className="font-semibold">1,631,000,000 g</span>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">CO₂ Saved (metric tons)</span>
+                          <span className="font-semibold">1,631 metric tons</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Tree Absorption (years)</span>
+                          <span className="font-semibold">77,700 trees/year</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Daily Cost Savings</span>
+                          <span className="font-semibold text-yellow-600">$1,333,500</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-4 border-t border-border/30">
+                      <p className="text-sm text-muted-foreground">
+                        <strong>Annual potential:</strong> $486M+ in energy cost savings alone
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 
