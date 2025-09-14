@@ -32,11 +32,9 @@ export function calculateMoneySaved(tokensSaved: number): number {
   return tokensSaved * ENERGY_CONSTANTS.COST_PER_TOKEN
 }
 
-// Calculate emissions saved based on energy consumption and Massachusetts grid carbon intensity
+// Calculate emissions saved using original rate
 export function calculateEmissionsSaved(tokensSaved: number): number {
-  const energyKwh = tokensSaved * ENERGY_CONSTANTS.ENERGY_PER_TOKEN
-  // Convert grams to kg (416 g CO2/kWh = 0.416 kg CO2/kWh)
-  return energyKwh * (ENERGY_CONSTANTS.GRID_CARBON_INTENSITY / 1000)
+  return tokensSaved * ENERGY_CONSTANTS.ORIGINAL_EMISSIONS_PER_TOKEN
 }
 
 // Calculate energy cost savings using Massachusetts electricity rate

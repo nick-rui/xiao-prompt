@@ -130,7 +130,7 @@ class PromptOptimizerAPITester:
             # Calculate energy and emissions savings using centralized constants
             # Money saved: $0.002 per token (as requested)
             # Energy saved: 0.04 kWh per 1000 tokens (from sample data)
-            # Emissions: Using Massachusetts grid carbon intensity (416 g CO2/kWh)
+            # Emissions: Using original rate (0.0000267 kg CO2 per token)
             energy_saved = calculate_energy_saved(tokens_saved)
             emissions_saved = calculate_emissions_saved(tokens_saved)
             # Energy costs calculated using Massachusetts average rate of $0.305/kWh

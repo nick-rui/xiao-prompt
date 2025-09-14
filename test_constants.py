@@ -14,9 +14,8 @@ def calculate_energy_saved(tokens_saved):
     return tokens_saved * ENERGY_PER_TOKEN
 
 def calculate_emissions_saved(tokens_saved):
-    """Calculate emissions saved using Massachusetts grid carbon intensity"""
-    energy_kwh = calculate_energy_saved(tokens_saved)
-    return energy_kwh * (GRID_CARBON_INTENSITY / 1000)  # Convert grams to kg
+    """Calculate emissions saved using original rate"""
+    return tokens_saved * 0.0000267  # Original rate from sample data
 
 def calculate_energy_cost_savings(tokens_saved):
     """Calculate energy cost savings using Massachusetts electricity rate"""
