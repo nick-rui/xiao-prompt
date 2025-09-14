@@ -399,6 +399,43 @@ export function PanelLeftIcon({ className }: { className?: string }) {
   )
 }
 
+export function BarChartIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M3 3v18h18"></path>
+      <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+    </svg>
+  )
+}
+
+export function ArrowDownIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <polyline points="19 12 12 19 5 12"></polyline>
+    </svg>
+  )
+}
+
+export function ArrowDownLeftIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M18 6L6 18"></path>
+      <path d="M6 6v12h12"></path>
+    </svg>
+  )
+}
+
+export function ArrowDownRightIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M6 6l12 12"></path>
+      <path d="M18 6v12H6"></path>
+    </svg>
+  )
+}
+
+
 // Aliases for compatibility
 export const ChevronRight = ChevronRightIcon
 export const MoreHorizontal = MoreHorizontalIcon

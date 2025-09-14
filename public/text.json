@@ -1,0 +1,140 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "playground": "Playground",
+    "apiTest": "API Test",
+    "apiGuide": "API Guide",
+    "apiDocs": "API Docs",
+    "getStarted": "Get Started",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "hero": {
+    "badge": "",
+    "title": "Reduce Token Usage",
+    "subtitle": "Prompt Distillation & Translation API for Token Optimization",
+    "ctaPrimary": "Start Saving Energy",
+    "ctaSecondary": "View Impact Demo",
+    "flowchart": {
+      "title": "How It Works",
+      "subtitle": "Our 3-step process to consolidate prompts to reduce token usage.",
+      "steps": {
+        "distillation": {
+          "title": "1. Prompt Distillation",
+          "description": "We use a lightweight model to distill verbose (i.e., voice-transcripted) prompts into barebones instructions.",
+          "icon": "🧠"
+        },
+        "translation": {
+          "title": "2. Chinese Translation",
+          "description": "Translate prompt to Chinese, which requires 20-30% fewer tokens to convey the same meaning.",
+          "icon": "🌏"
+        },
+        "integration": {
+          "title": "3. API Integration",
+          "description": "Layer on top of existing API calls to your models, no infrastructure changes needed",
+          "icon": "🔗"
+        }
+      }
+    }
+  },
+  "example": {
+    "title": "Sustainability with Negligible Quality Loss.",
+    "subtitle": "Compare raw AI prompts with our eco-optimized versions.",
+    "startingImage": {
+      "title": "Starting Image",
+      "description": "Original image to be edited with different prompts with Gemini Nanobanana.",
+      "placeholder": "insert starting image here"
+    },
+    "rawPrompt": {
+      "title": "Raw Prompt (transcriped with Wispr Flow)",
+      "description": "I will upload you a photo that I would like you to enhance and modify for me. Can you please add some beautiful stars and a crescent half moon to the sky portion of this image? I want it to have twinkling stars scattered across the heavens along with a graceful half moon to create a more magical nighttime atmosphere...",
+      "placeholder": "~150 tokens"
+    },
+    "optimizedPrompt": {
+      "title": "Eco-Optimized Chinese Prompt",
+      "description": "增强夜空，添加闪烁的星星，新月半月，神奇的夜间氛围 \n\n",
+      "placeholder": "~40 tokens"
+    }
+  },
+  "validation": {
+    "title": "Sustainability Research & Validation",
+    "subtitle": "Our optimization algorithms are backed by environmental research and rigorous testing to ensure both quality and sustainability.",
+    "qualityMetrics": {
+      "title": "Environmental Quality",
+      "description": "Comprehensive evaluation of output quality with minimal environmental impact",
+      "semanticSimilarity": "Semantic Similarity",
+      "semanticSimilarityValue": "98.2%",
+      "taskCompletion": "Task Completion",
+      "taskCompletionValue": "99.1%",
+      "userSatisfaction": "User Satisfaction",
+      "userSatisfactionValue": "94.7%"
+    },
+    "sustainabilityGains": {
+      "title": "Sustainability Impact",
+      "description": "Measurable improvements in energy efficiency and environmental footprint",
+      "energyReduction": "Energy Reduction",
+      "energyReductionValue": "-58.3%",
+      "carbonReduction": "Carbon Footprint",
+      "carbonReductionValue": "-62.1%",
+      "processingSpeed": "Processing Speed",
+      "processingSpeedValue": "+23.4%"
+    },
+    "environmentalImpact": {
+      "title": "Planet Impact",
+      "description": "Contributing to a sustainable future through responsible AI development",
+      "energySaved": "Energy Saved",
+      "energySavedValue": "-45.2%",
+      "emissionsReduction": "Emissions Reduction",
+      "emissionsReductionValue": "-48.7%",
+      "greenScore": "Green Score",
+      "greenScoreValue": "A+"
+    }
+  },
+  "api": {
+    "title": "Sustainable API & Dashboard",
+    "subtitle": "Integrate our eco-friendly optimization engine into your workflow. Monitor your environmental impact and contribute to sustainable AI development.",
+    "apiFeatures": {
+      "title": "Green API",
+      "description": "Environmentally conscious HTTP endpoints for prompt optimization",
+      "endpoint": "POST /api/v1/optimize",
+      "example": {
+        "prompt": "Your prompt here",
+        "model": "gpt-4",
+        "optimization_level": "eco-friendly"
+      },
+      "features": {
+        "jsonResponse": "JSON Response",
+        "rateLimited": "Rate Limited",
+        "webhookSupport": "Webhook Support"
+      },
+      "uptime": "99.9%",
+      "uptimeLabel": "Uptime SLA",
+      "responseTime": "<200ms",
+      "responseTimeLabel": "Response Time"
+    },
+    "dashboardFeatures": {
+      "title": "Sustainability Dashboard",
+      "description": "Monitor your environmental impact and track sustainability metrics",
+      "features": {
+        "liveTracking": "Live sustainability tracking",
+        "carbonAnalytics": "Carbon footprint analytics",
+        "energyBenchmarking": "Energy efficiency benchmarking",
+        "teamCollaboration": "Team collaboration tools",
+        "sustainabilityReporting": "Environmental impact reporting"
+      },
+      "ctaDashboard": "View Dashboard",
+      "ctaDocumentation": "API Documentation"
+    }
+  },
+  "cta": {
+    "title": "Ready to Go Green?",
+    "subtitle": "Join thousands of organizations already reducing their AI carbon footprint and building a more sustainable future with XiaoPrompt.",
+    "ctaPrimary": "Start Saving the Planet",
+    "ctaSecondary": "Schedule Demo"
+  },
+  "footer": {
+    "copyright": "© 2025 XiaoPrompt. All rights reserved."
+  }
+}

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
+import { Navigation } from '@/components/navigation'
 
 export default function TestUploadPage() {
   const [file, setFile] = useState<File | null>(null)
@@ -106,7 +107,9 @@ export default function TestUploadPage() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <div className="container mx-auto p-6 space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>File Upload Test</CardTitle>
@@ -198,6 +201,7 @@ export default function TestUploadPage() {
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   )
 }

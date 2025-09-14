@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/api-client'
+import { Navigation } from '@/components/navigation'
 
 export default function ApiTestPage() {
   const [apiKey, setApiKey] = useState('demo')
@@ -96,7 +97,9 @@ export default function ApiTestPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <div className="p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold">PromptOptimizer API Tester</h1>
@@ -239,8 +242,8 @@ export default function ApiTestPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 API Response
-                {result?.id && <Badge variant="secondary">{result.id}</Badge>}
-                {result?.batchId && <Badge variant="secondary">{result.batchId}</Badge>}
+                {result?.id && <Badge className="bg-secondary text-secondary-foreground">{result.id}</Badge>}
+                {result?.batchId && <Badge className="bg-secondary text-secondary-foreground">{result.batchId}</Badge>}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -297,7 +300,7 @@ export default function ApiTestPage() {
                         {result.results.map((item: any, index: number) => (
                           <div key={index} className="p-3 bg-muted rounded-lg">
                             <div className="flex items-center justify-between mb-2">
-                              <Badge variant={item.status === 'completed' ? 'default' : 'destructive'}>
+                              <Badge className={item.status === 'completed' ? '' : 'bg-destructive text-white'}>
                                 {item.status}
                               </Badge>
                               {item.metrics && (
@@ -333,6 +336,7 @@ export default function ApiTestPage() {
             </CardContent>
           </Card>
         )}
+      </div>
       </div>
     </div>
   )
