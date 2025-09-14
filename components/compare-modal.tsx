@@ -82,7 +82,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl w-[95vw] max-h-[90vh] overflow-y-auto glass-effect border-border/50">
+      <DialogContent className="max-w-[95vw] w-[95vw] max-h-[90vh] overflow-y-auto glass-effect border-border/50">
         <DialogHeader className="border-b border-border/50 pb-4">
           <DialogTitle className="text-2xl font-bold tracking-tight flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -104,7 +104,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid xl:grid-cols-2 gap-8">
             <Card className="glass-effect border-destructive/20">
               <CardHeader className="border-b border-border/50 pb-4">
                 <CardTitle className="text-lg text-destructive flex items-center gap-3">
@@ -167,7 +167,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
               </div>
               Optimization Metrics
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {metrics.map((metric) => (
                 <Card
                   key={metric.label}
@@ -196,7 +196,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
               </div>
               Efficiency Summary
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               <Card className="glass-effect border-primary/20 hover:scale-105 transition-transform duration-200">
                 <CardContent className="pt-6 pb-6">
                   <div className="text-center">
