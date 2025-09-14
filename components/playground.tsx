@@ -26,6 +26,8 @@ export function Playground() {
   const [result, setResult] = useState<OptimizationResult | null>(null)
   const [displayedOriginalTokens, setDisplayedOriginalTokens] = useState<number | null>(null)
   const [copied, setCopied] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -139,6 +141,9 @@ export function Playground() {
   const saveToDatabase = async () => {
     if (!result) return
 
+    setIsSaving(true)
+    setSaveSuccess(false)
+
     try {
       const response = await fetch('/api/save-prompt', {
         method: 'POST',
@@ -160,12 +165,15 @@ export function Playground() {
 
       if (response.ok) {
         console.log("Successfully saved to database")
-        // You could add a success toast notification here
+        setSaveSuccess(true)
+        setTimeout(() => setSaveSuccess(false), 3000) // Reset after 3 seconds
       } else {
         console.error("Failed to save to database")
       }
     } catch (error) {
       console.error("Error saving to database:", error)
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -337,11 +345,27 @@ export function Playground() {
                   <div className="pt-4">
                     <Button
                       onClick={saveToDatabase}
+                      disabled={isSaving}
                       variant="outline"
-                      className="w-full bg-transparent hover:bg-muted/50 py-2.5"
+                      className={`w-full py-2.5 transition-all duration-200 ${
+                        saveSuccess 
+                          ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100' 
+                          : 'bg-transparent hover:bg-muted/50'
+                      }`}
                       size="lg"
                     >
-                      Save to Dashboard
+                      {isSaving ? (
+                        <>
+                          <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full mr-2" />
+                          Saving...
+                        </>
+                      ) : saveSuccess ? (
+                        <>
+                          ✓ Saved to Dashboard!
+                        </>
+                      ) : (
+                        'Save to Dashboard'
+                      )}
                     </Button>
                   </div>
                 </div>
