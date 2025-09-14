@@ -124,7 +124,7 @@ export default function LandingPage() {
                       <p className="text-xs text-muted-foreground">Read our detailed methodology</p>
                     </div>
                     <a 
-                      href="/xiaoprompt_paper.pdf" 
+                      href="/paper.pdf" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="ml-auto bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors duration-200 flex items-center space-x-1"
