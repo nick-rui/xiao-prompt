@@ -6,9 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { Filter, X, Calendar, Users, Zap, DollarSign } from "lucide-react"
+import { FilterIcon, XIcon, CalendarIcon, UsersIcon, ZapIcon, DollarSignIcon } from "@/components/icons"
 
-export function FilterBar() {
+interface FilterBarProps {
+  users: string[]
+}
+
+export function FilterBar({ users }: FilterBarProps) {
   const [filters, setFilters] = useState({
     dateRange: "",
     user: "",
@@ -33,13 +37,13 @@ export function FilterBar() {
         <div className="flex items-center gap-6 flex-wrap">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
-              <Filter className="h-4 w-4" />
+              <FilterIcon className="h-4 w-4" />
             </div>
             <Label className="text-sm font-semibold tracking-wide uppercase text-foreground/90">Filters</Label>
           </div>
 
           <div className="flex items-center gap-3">
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <CalendarIcon className="h-4 w-4 text-muted-foreground" />
             <Label htmlFor="date-range" className="text-sm font-medium whitespace-nowrap">
               Date Range:
             </Label>
@@ -64,7 +68,7 @@ export function FilterBar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <UsersIcon className="h-4 w-4 text-muted-foreground" />
             <Label htmlFor="user-filter" className="text-sm font-medium whitespace-nowrap">
               User:
             </Label>
@@ -76,16 +80,17 @@ export function FilterBar() {
                 <SelectValue placeholder="All users" />
               </SelectTrigger>
               <SelectContent className="glass-effect border-border/50">
-                <SelectItem value="john">John Doe</SelectItem>
-                <SelectItem value="jane">Jane Smith</SelectItem>
-                <SelectItem value="mike">Mike Johnson</SelectItem>
-                <SelectItem value="sarah">Sarah Wilson</SelectItem>
+                {users.map((user) => (
+                  <SelectItem key={user} value={user}>
+                    {user}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="flex items-center gap-3">
-            <Zap className="h-4 w-4 text-yellow-400" />
+            <ZapIcon className="h-4 w-4 text-yellow-400" />
             <Label htmlFor="min-tokens" className="text-sm font-medium whitespace-nowrap">
               Min Tokens:
             </Label>
@@ -100,7 +105,7 @@ export function FilterBar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <DollarSign className="h-4 w-4 text-green-400" />
+            <DollarSignIcon className="h-4 w-4 text-green-400" />
             <Label htmlFor="min-money" className="text-sm font-medium whitespace-nowrap">
               Min $ Saved:
             </Label>
@@ -121,7 +126,7 @@ export function FilterBar() {
               onClick={clearFilters}
               className="border-destructive/30 text-destructive/80 hover:border-destructive hover:text-destructive hover:bg-destructive/10 transition-all duration-200 bg-transparent"
             >
-              <X className="h-4 w-4 mr-2" />
+              <XIcon className="h-4 w-4 mr-2" />
               Clear Filters
             </Button>
           )}

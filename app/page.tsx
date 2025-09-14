@@ -1,27 +1,44 @@
 import { DashboardHeader } from "@/components/dashboard-header"
-import { SummaryCards } from "@/components/summary-cards"
-import { OptimizationTable } from "@/components/optimization-table"
-import { FilterBar } from "@/components/filter-bar"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
+import { createClient } from "@/lib/supabase/server"
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const supabase = await createClient()
+
+  // Fetch all prompts data
+  const { data: prompts, error } = await supabase.from("prompts").select("*").order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching prompts:", error)
+  }
+
+  // Calculate summary metrics
+  const summaryMetrics = prompts?.reduce(
+    (acc, prompt) => ({
+      totalTokensSaved: acc.totalTokensSaved + prompt.tokens_saved,
+      totalMoneySaved: acc.totalMoneySaved + prompt.money_saved,
+      totalEnergySaved: acc.totalEnergySaved + prompt.energy_saved,
+      totalEmissionsSaved: acc.totalEmissionsSaved + prompt.emissions_saved,
+    }),
+    {
+      totalTokensSaved: 0,
+      totalMoneySaved: 0,
+      totalEnergySaved: 0,
+      totalEmissionsSaved: 0,
+    },
+  ) || {
+    totalTokensSaved: 0,
+    totalMoneySaved: 0,
+    totalEnergySaved: 0,
+    totalEmissionsSaved: 0,
+  }
+
+  const uniqueUsers = [...new Set(prompts?.map((p) => p.user_name) || [])]
+
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      <main className="container mx-auto px-6 py-8 space-y-8">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-bold tracking-tight text-balance">Prompt Optimization Dashboard</h1>
-          <p className="text-muted-foreground text-pretty">
-            Track and analyze your AI prompt optimization results to improve efficiency and reduce costs.
-          </p>
-        </div>
-
-        <SummaryCards />
-
-        <div className="space-y-6">
-          <FilterBar />
-          <OptimizationTable />
-        </div>
-      </main>
+      <DashboardWrapper prompts={prompts || []} summaryMetrics={summaryMetrics} uniqueUsers={uniqueUsers} />
     </div>
   )
 }

@@ -3,20 +3,30 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { TrendingUp, DollarSign, Zap, Leaf, User, Calendar, FileText, Target } from "lucide-react"
+import {
+  TrendingUpIcon,
+  DollarSignIcon,
+  ZapIcon,
+  LeafIcon,
+  UserIcon,
+  CalendarIcon,
+  FileTextIcon,
+  TargetIcon,
+} from "@/components/icons"
 
 interface CompareModalProps {
   data: {
     id: string
-    originalPrompt: string
-    optimizedPrompt: string
-    tokensSaved: number
-    moneySaved: number
-    energySaved: number
-    emissionsSaved: number
-    dateProcessed: string
-    user: string
-    improvementNotes: string
+    original_prompt: string
+    optimized_prompt: string
+    original_tokens: number
+    optimized_tokens: number
+    tokens_saved: number
+    money_saved: number
+    energy_saved: number
+    emissions_saved: number
+    user_name: string
+    created_at: string
   } | null
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -28,37 +38,47 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
   const metrics = [
     {
       label: "Tokens Saved",
-      value: data.tokensSaved.toLocaleString(),
-      icon: TrendingUp,
+      value: data.tokens_saved.toLocaleString(),
+      icon: TrendingUpIcon,
       color: "text-yellow-400",
       bgColor: "bg-yellow-500/10",
       borderColor: "border-yellow-500/20",
     },
     {
       label: "Money Saved",
-      value: `$${data.moneySaved.toFixed(2)}`,
-      icon: DollarSign,
+      value: `$${data.money_saved.toFixed(4)}`,
+      icon: DollarSignIcon,
       color: "text-green-400",
       bgColor: "bg-green-500/10",
       borderColor: "border-green-500/20",
     },
     {
       label: "Energy Saved",
-      value: `${data.energySaved.toFixed(2)} kWh`,
-      icon: Zap,
+      value: `${data.energy_saved.toFixed(4)} kWh`,
+      icon: ZapIcon,
       color: "text-blue-400",
       bgColor: "bg-blue-500/10",
       borderColor: "border-blue-500/20",
     },
     {
       label: "Emissions Saved",
-      value: `${data.emissionsSaved.toFixed(2)} kg CO₂e`,
-      icon: Leaf,
-      color: "text-teal-400",
+      value: `${data.emissions_saved.toFixed(4)} kg CO₂e`,
+      icon: LeafIcon,
+      color: "text-teal-600",
       bgColor: "bg-teal-500/10",
       borderColor: "border-teal-500/20",
     },
   ]
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -66,7 +86,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
         <DialogHeader className="border-b border-border/50 pb-4">
           <DialogTitle className="text-2xl font-bold tracking-tight flex items-center gap-3">
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
-              <Target className="h-6 w-6" />
+              <TargetIcon className="h-6 w-6" />
             </div>
             Prompt Optimization Analysis
           </DialogTitle>
@@ -75,12 +95,12 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
         <div className="space-y-8 pt-2">
           <div className="flex items-center gap-8 text-sm">
             <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-muted/20 border border-border/50">
-              <User className="h-4 w-4 text-primary" />
-              <span className="font-medium text-foreground">{data.user}</span>
+              <UserIcon className="h-4 w-4 text-primary" />
+              <span className="font-medium text-foreground">{data.user_name}</span>
             </div>
             <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-muted/20 border border-border/50">
-              <Calendar className="h-4 w-4 text-primary" />
-              <span className="font-mono text-foreground">{data.dateProcessed}</span>
+              <CalendarIcon className="h-4 w-4 text-primary" />
+              <span className="font-mono text-foreground">{formatDate(data.created_at)}</span>
             </div>
           </div>
 
@@ -88,22 +108,23 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
             <Card className="glass-effect border-destructive/20">
               <CardHeader className="border-b border-border/50">
                 <CardTitle className="text-lg text-destructive flex items-center gap-3">
-                  <FileText className="h-5 w-5" />
+                  <FileTextIcon className="h-5 w-5" />
                   Original Prompt
+                  <span className="ml-auto text-sm font-mono text-muted-foreground">{data.original_tokens} tokens</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
                   <p className="text-sm leading-relaxed whitespace-pre-wrap font-mono text-foreground/90">
-                    {data.originalPrompt}
+                    {data.original_prompt}
                   </p>
                 </div>
                 <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="font-medium">
-                    <strong>Length:</strong> {data.originalPrompt.length} characters
+                    <strong>Length:</strong> {data.original_prompt.length} characters
                   </span>
                   <span className="font-medium">
-                    <strong>Words:</strong> {data.originalPrompt.split(" ").length}
+                    <strong>Words:</strong> {data.original_prompt.split(" ").length}
                   </span>
                 </div>
               </CardContent>
@@ -112,22 +133,25 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
             <Card className="glass-effect border-primary/20">
               <CardHeader className="border-b border-border/50">
                 <CardTitle className="text-lg text-primary flex items-center gap-3">
-                  <Target className="h-5 w-5" />
+                  <TargetIcon className="h-5 w-5" />
                   Optimized Prompt
+                  <span className="ml-auto text-sm font-mono text-muted-foreground">
+                    {data.optimized_tokens} tokens
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="p-6 bg-primary/5 border border-primary/20 rounded-lg">
                   <p className="text-sm leading-relaxed whitespace-pre-wrap font-mono text-foreground/90">
-                    {data.optimizedPrompt}
+                    {data.optimized_prompt}
                   </p>
                 </div>
                 <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="font-medium">
-                    <strong>Length:</strong> {data.optimizedPrompt.length} characters
+                    <strong>Length:</strong> {data.optimized_prompt.length} characters
                   </span>
                   <span className="font-medium">
-                    <strong>Words:</strong> {data.optimizedPrompt.split(" ").length}
+                    <strong>Words:</strong> {data.optimized_prompt.split(" ").length}
                   </span>
                 </div>
               </CardContent>
@@ -139,7 +163,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
           <div>
             <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <TrendingUp className="h-5 w-5" />
+                <TrendingUpIcon className="h-5 w-5" />
               </div>
               Optimization Metrics
             </h3>
@@ -165,29 +189,10 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
             </div>
           </div>
 
-          <Separator className="bg-border/50" />
-
-          {/* Improvement Notes */}
           <div>
             <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <FileText className="h-5 w-5" />
-              </div>
-              Improvement Notes
-            </h3>
-            <Card className="glass-effect border-primary/20">
-              <CardContent className="pt-6">
-                <p className="text-sm leading-relaxed text-pretty text-foreground/90 font-medium">
-                  {data.improvementNotes}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <TrendingUp className="h-5 w-5" />
+                <TrendingUpIcon className="h-5 w-5" />
               </div>
               Efficiency Summary
             </h3>
@@ -197,7 +202,8 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
                   <div className="text-center">
                     <div className="text-3xl font-bold text-primary font-mono mb-2">
                       {Math.round(
-                        ((data.originalPrompt.length - data.optimizedPrompt.length) / data.originalPrompt.length) * 100,
+                        ((data.original_prompt.length - data.optimized_prompt.length) / data.original_prompt.length) *
+                          100,
                       )}
                       %
                     </div>
@@ -208,7 +214,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
               <Card className="glass-effect border-yellow-500/20 hover:scale-105 transition-transform duration-200">
                 <CardContent className="pt-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-400 font-mono mb-2">{data.tokensSaved}</div>
+                    <div className="text-3xl font-bold text-yellow-400 font-mono mb-2">{data.tokens_saved}</div>
                     <div className="text-sm text-muted-foreground font-medium">Tokens Saved</div>
                   </div>
                 </CardContent>
@@ -217,7 +223,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-green-400 font-mono mb-2">
-                      ${data.moneySaved.toFixed(2)}
+                      ${data.money_saved.toFixed(4)}
                     </div>
                     <div className="text-sm text-muted-foreground font-medium">Cost Savings</div>
                   </div>

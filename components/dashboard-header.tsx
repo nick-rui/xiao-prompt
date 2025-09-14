@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Settings, User, LogOut, Cpu, BarChart3, History, Cog } from "lucide-react"
+import { SettingsIcon, UserIcon, LogOutIcon, CpuIcon, BarChart3Icon, HistoryIcon, CogIcon } from "@/components/icons"
 
 export function DashboardHeader() {
   return (
@@ -10,7 +10,7 @@ export function DashboardHeader() {
         <div className="flex items-center space-x-8">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-lg glow-effect">
-              <Cpu className="text-primary-foreground h-5 w-5" />
+              <CpuIcon className="text-primary-foreground h-5 w-5" />
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight text-foreground">PromptOptimizer</span>
@@ -23,28 +23,28 @@ export function DashboardHeader() {
               variant="ghost"
               className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
             >
-              <BarChart3 className="h-4 w-4" />
+              <BarChart3Icon className="h-4 w-4" />
               Overview
             </Button>
             <Button
               variant="ghost"
               className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
             >
-              <BarChart3 className="h-4 w-4" />
+              <BarChart3Icon className="h-4 w-4" />
               Analytics
             </Button>
             <Button
               variant="ghost"
               className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
             >
-              <History className="h-4 w-4" />
+              <HistoryIcon className="h-4 w-4" />
               History
             </Button>
             <Button
               variant="ghost"
               className="text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all duration-200 flex items-center gap-2"
             >
-              <Cog className="h-4 w-4" />
+              <CogIcon className="h-4 w-4" />
               Settings
             </Button>
           </nav>
@@ -64,15 +64,15 @@ export function DashboardHeader() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 glass-effect border-border/50" align="end" forceMount>
             <DropdownMenuItem className="hover:bg-primary/10 hover:text-primary transition-colors">
-              <User className="mr-3 h-4 w-4" />
+              <UserIcon className="mr-3 h-4 w-4" />
               <span>Profile</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-primary/10 hover:text-primary transition-colors">
-              <Settings className="mr-3 h-4 w-4" />
+              <SettingsIcon className="mr-3 h-4 w-4" />
               <span>Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-destructive/10 hover:text-destructive transition-colors">
-              <LogOut className="mr-3 h-4 w-4" />
+              <LogOutIcon className="mr-3 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
