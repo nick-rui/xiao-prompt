@@ -656,7 +656,7 @@ export default function LandingPage() {
                 Scale Impact: 3.5M Vercel Users
               </h3>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                This is just the impact from our personal site. If Vercel implemented this optimization for all 3.5 million users of v0, the daily savings would be:
+                This is just the impact from our personal site over the past 24 hours. If Vercel implemented this optimization for all 3.5 million users of v0, assuming an usage rate matching ours, the daily savings would be:
               </p>
             </div>
 
