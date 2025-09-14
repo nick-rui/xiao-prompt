@@ -31,7 +31,9 @@ export default function LandingPage() {
           <div className="text-center space-y-8">
             <div className="space-y-4">
               <Badge className="text-sm px-4 py-2 border border-border/50 bg-transparent text-foreground hover:bg-accent/50">
-                <img src="/xiaoprompt_logo.png" alt="XiaoPrompt" className="w-8 h-8 mr-2" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg glow-effect overflow-hidden mr-2">
+                  <img src="/xiaoprompt_logo.png" alt="XiaoPrompt" className="w-full h-full object-contain" />
+                </div>
                 {text.hero.badge}
               </Badge>
               <div className="space-y-6">
@@ -45,11 +47,10 @@ export default function LandingPage() {
             </div>
             
             <div className="flex items-center justify-center pt-8">
-              <Link href="/dashboard">
-                <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90">
-                  {text.hero.ctaPrimary}
-                  <ArrowRightIcon className="w-5 h-5 ml-2" />
-                </Button>
+              <Link href="/dashboard" className="group">
+                <Card className="neon-border border-primary/50 glow-effect text-center py-3 px-6 w-56 cursor-pointer hover:scale-105 transition-all duration-300 ease-out">
+                  <span className="text-lg font-bold text-primary whitespace-nowrap">{text.hero.ctaPrimary}</span>
+                </Card>
               </Link>
             </div>
 
