@@ -1,3 +1,10 @@
+### FOR YC:
+
+Competing with CarbonChain.
+
+Unlike other tools that only trim costs or track emissions, XiaoPrompt delivers both efficiency and sustainability. By distilling prompts through a lightweight LLM and translating them into Chinese for 25–40% greater token efficiency, we reduce usage by over 53% without sacrificing accuracy. That means lower API bills, faster responses, and a smaller compute footprint. And with our plug-and-play API plus a dashboard to monitor savings and reduced carbon output, companies can see in real time how XiaoPrompt makes their AI workflows smarter, cheaper, and greener.
+
+
 # Prompt optimization dashboard
 
 *Automatically synced with your [v0.app](https://v0.app) deployments*
