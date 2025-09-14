@@ -473,98 +473,80 @@ export default function LandingPage() {
       </section>
 
       {/* Team Impact Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-primary/5 to-primary/10">
+      <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Building This Platform: Our Impact
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                In developing this frontend, our team achieved significant efficiency gains that demonstrate the power of prompt optimization
-              </p>
-            </div>
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Building This Platform: Our Impact
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              In developing this frontend, our team achieved significant efficiency gains that demonstrate the power of prompt optimization
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              {/* Token Savings */}
-              <Card className="glass-effect border-primary/20">
-                <CardContent className="pt-8 pb-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                      <ZapIcon className="w-8 h-8 text-primary" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-4xl font-bold text-primary">53%</div>
-                      <div className="text-lg font-semibold">Token Reduction</div>
-                      <div className="text-sm text-muted-foreground">
-                        From 60,000 to 28,200 tokens
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Token Savings */}
+            <Card className="glass-effect">
+              <CardHeader>
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <ZapIcon className="w-6 h-6 text-primary" />
+                </div>
+                <CardTitle>Token Reduction</CardTitle>
+                <CardDescription>
+                  From 60,000 to 28,200 tokens
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-primary">53%</div>
+                  <div className="text-sm text-muted-foreground">
+                    Efficiency improvement
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* Energy Savings */}
-              <Card className="glass-effect border-green-500/20">
-                <CardContent className="pt-8 pb-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto">
-                      <div className="text-2xl">⚡</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-4xl font-bold text-green-600">1.27 kWh</div>
-                      <div className="text-lg font-semibold">Energy Saved</div>
-                      <div className="text-sm text-muted-foreground">
-                        From 2.4 kWh to 1.13 kWh
-                      </div>
-                    </div>
+            {/* Energy Savings */}
+            <Card className="glass-effect">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="text-2xl">⚡</div>
+                </div>
+                <CardTitle>Energy Saved</CardTitle>
+                <CardDescription>
+                  From 2.4 kWh to 1.13 kWh
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-green-600">1.27 kWh</div>
+                  <div className="text-sm text-muted-foreground">
+                    Energy reduction
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* Emissions Reduction */}
-              <Card className="glass-effect border-blue-500/20">
-                <CardContent className="pt-8 pb-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto">
-                      <div className="text-2xl">🌱</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-4xl font-bold text-blue-600">0.68g</div>
-                      <div className="text-lg font-semibold">CO₂ Reduced</div>
-                      <div className="text-sm text-muted-foreground">
-                        From 1.6g to 0.92g per prompt
-                      </div>
-                    </div>
+            {/* Emissions Reduction */}
+            <Card className="glass-effect">
+              <CardHeader>
+                <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="text-2xl">🌱</div>
+                </div>
+                <CardTitle>CO₂ Reduced</CardTitle>
+                <CardDescription>
+                  From 1.6g to 0.92g per prompt
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center space-y-2">
+                  <div className="text-4xl font-bold text-blue-600">0.68g</div>
+                  <div className="text-sm text-muted-foreground">
+                    Carbon reduction
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Impact Statement */}
-            <div className="mt-12 max-w-4xl mx-auto">
-              <Card className="glass-effect border-primary/30">
-                <CardContent className="p-8">
-                  <div className="text-center space-y-4">
-                    <h3 className="text-2xl font-bold text-primary">
-                      Real-World Environmental Impact
-                    </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      Large language model inference typically consumes <strong>2-5 grams CO₂ per prompt</strong>, 
-                      with total emissions ranging from <strong>50-250 grams CO₂</strong> for complex tasks. 
-                      By optimizing our development prompts, we achieved a <strong>53% reduction</strong> in token usage, 
-                      directly translating to proportional savings in energy consumption and carbon emissions.
-                    </p>
-                    <div className="pt-4 border-t border-border/30">
-                      <p className="text-sm text-muted-foreground">
-                        This demonstrates how prompt optimization isn't just about cost savings—it's about building 
-                        more sustainable AI applications from the ground up.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
