@@ -71,8 +71,8 @@ export function Playground() {
       const tokensSaved = result.metrics?.tokensSaved || 0
       const improvementPercentage = result.metrics?.reductionPercentage || 0
       
-      console.log('✅ API v1 SUCCESS: Using enhanced prompt optimizer')
-      console.log('📊 API METRICS:', {
+      console.log('API v1 SUCCESS: Using enhanced prompt optimizer')
+      console.log('API METRICS:', {
         optimizationId: result.id,
         strategy: result.strategy,
         originalTokens,
@@ -100,7 +100,7 @@ export function Playground() {
       setResult(optimizationResult)
     } catch (error) {
       console.error('Error optimizing prompt:', error)
-      console.log('🔄 FALLBACK: Using mock optimization due to optimizer failure')
+      console.log('FALLBACK: Using mock optimization due to optimizer failure')
       
       // Fallback to mock optimization if optimizer fails
       const originalTokens = Math.ceil(prompt.length / 4) // Rough estimation fallback
@@ -108,7 +108,7 @@ export function Playground() {
       const tokensSaved = originalTokens - optimizedTokens
       const improvementPercentage = Math.round((tokensSaved / originalTokens) * 100)
       
-      console.log('📊 FALLBACK METRICS:', {
+      console.log('FALLBACK METRICS:', {
         originalTokens,
         optimizedTokens,
         tokensSaved,

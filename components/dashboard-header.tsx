@@ -13,7 +13,7 @@ export function DashboardHeader() {
               <CpuIcon className="text-primary-foreground h-5 w-5" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-foreground">PromptOptimizer</span>
+              <span className="font-bold text-xl tracking-tight text-foreground">XiaoPrompt</span>
               <span className="text-xs text-muted-foreground font-mono tracking-wider">AI EFFICIENCY PLATFORM</span>
             </div>
           </div>
