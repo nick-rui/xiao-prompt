@@ -40,7 +40,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
       label: "Tokens Saved",
       value: data.tokens_saved.toLocaleString(),
       icon: TrendingUpIcon,
-      color: "text-yellow-400",
+      color: "text-yellow-800",
       bgColor: "bg-yellow-500/10",
       borderColor: "border-yellow-500/20",
     },
@@ -214,7 +214,7 @@ export function CompareModal({ data, open, onOpenChange }: CompareModalProps) {
               <Card className="glass-effect border-yellow-500/20 hover:scale-105 transition-transform duration-200">
                 <CardContent className="pt-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-400 font-mono mb-2">{data.tokens_saved}</div>
+                    <div className="text-3xl font-bold text-yellow-800 font-mono mb-2">{data.tokens_saved}</div>
                     <div className="text-sm text-muted-foreground font-medium">Tokens Saved</div>
                   </div>
                 </CardContent>

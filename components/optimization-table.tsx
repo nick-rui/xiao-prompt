@@ -2,11 +2,25 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { CompareModal } from "@/components/compare-modal"
-import { EyeIcon, ArrowUpDownIcon, ZapIcon, DollarSignIcon, LeafIcon, TrendingUpIcon } from "@/components/icons"
+import {
+  EyeIcon,
+  ArrowUpDownIcon,
+  ZapIcon,
+  DollarSignIcon,
+  LeafIcon,
+  TrendingUpIcon,
+  FilterIcon,
+  XIcon,
+  CalendarIcon,
+  UsersIcon,
+} from "@/components/icons"
 
 interface PromptData {
   id: string
@@ -24,12 +38,20 @@ interface PromptData {
 
 interface OptimizationTableProps {
   data: PromptData[]
+  users: string[]
 }
 
-export function OptimizationTable({ data }: OptimizationTableProps) {
+export function OptimizationTable({ data, users }: OptimizationTableProps) {
   const [selectedRow, setSelectedRow] = useState<PromptData | null>(null)
   const [sortField, setSortField] = useState<string>("")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
+
+  const [filters, setFilters] = useState({
+    dateRange: "",
+    user: "",
+    minTokensSaved: "",
+    minMoneySaved: "",
+  })
 
   const handleSort = (field: string) => {
     if (sortField === field) {
@@ -39,6 +61,17 @@ export function OptimizationTable({ data }: OptimizationTableProps) {
       setSortDirection("desc")
     }
   }
+
+  const clearFilters = () => {
+    setFilters({
+      dateRange: "",
+      user: "",
+      minTokensSaved: "",
+      minMoneySaved: "",
+    })
+  }
+
+  const hasActiveFilters = Object.values(filters).some((value) => value !== "")
 
   const sortedData = [...data].sort((a, b) => {
     if (!sortField) return 0
@@ -78,6 +111,109 @@ export function OptimizationTable({ data }: OptimizationTableProps) {
               {sortedData.length} records
             </Badge>
           </CardTitle>
+
+          <div className="pt-4 border-t border-border/30 mt-4">
+            <div className="flex items-center gap-6 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="p-1.5 rounded-md bg-primary/10 text-primary">
+                  <FilterIcon className="h-3.5 w-3.5" />
+                </div>
+                <Label className="text-xs font-semibold tracking-wide uppercase text-foreground/70">Filters</Label>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                <Label htmlFor="date-range" className="text-xs font-medium whitespace-nowrap">
+                  Date Range:
+                </Label>
+                <Select
+                  value={filters.dateRange}
+                  onValueChange={(value) => setFilters((prev) => ({ ...prev, dateRange: value }))}
+                >
+                  <SelectTrigger
+                    className="w-[120px] h-8 text-xs glass-effect border-border/50 hover:border-primary/50 transition-colors"
+                    id="date-range"
+                  >
+                    <SelectValue placeholder="All time" />
+                  </SelectTrigger>
+                  <SelectContent className="glass-effect border-border/50">
+                    <SelectItem value="today">Today</SelectItem>
+                    <SelectItem value="week">Last 7 days</SelectItem>
+                    <SelectItem value="month">Last 30 days</SelectItem>
+                    <SelectItem value="quarter">Last 90 days</SelectItem>
+                    <SelectItem value="year">Last year</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <UsersIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                <Label htmlFor="user-filter" className="text-xs font-medium whitespace-nowrap">
+                  User:
+                </Label>
+                <Select
+                  value={filters.user}
+                  onValueChange={(value) => setFilters((prev) => ({ ...prev, user: value }))}
+                >
+                  <SelectTrigger
+                    className="w-[100px] h-8 text-xs glass-effect border-border/50 hover:border-primary/50 transition-colors"
+                    id="user-filter"
+                  >
+                    <SelectValue placeholder="All users" />
+                  </SelectTrigger>
+                  <SelectContent className="glass-effect border-border/50">
+                    {users.map((user) => (
+                      <SelectItem key={user} value={user}>
+                        {user}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <ZapIcon className="h-3.5 w-3.5 text-yellow-400" />
+                <Label htmlFor="min-tokens" className="text-xs font-medium whitespace-nowrap">
+                  Min Tokens:
+                </Label>
+                <Input
+                  id="min-tokens"
+                  type="number"
+                  placeholder="0"
+                  className="w-20 h-8 text-xs glass-effect border-border/50 hover:border-primary/50 focus:border-primary transition-colors font-mono"
+                  value={filters.minTokensSaved}
+                  onChange={(e) => setFilters((prev) => ({ ...prev, minTokensSaved: e.target.value }))}
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <DollarSignIcon className="h-3.5 w-3.5 text-green-400" />
+                <Label htmlFor="min-money" className="text-xs font-medium whitespace-nowrap">
+                  Min $ Saved:
+                </Label>
+                <Input
+                  id="min-money"
+                  type="number"
+                  placeholder="0"
+                  className="w-20 h-8 text-xs glass-effect border-border/50 hover:border-primary/50 focus:border-primary transition-colors font-mono"
+                  value={filters.minMoneySaved}
+                  onChange={(e) => setFilters((prev) => ({ ...prev, minMoneySaved: e.target.value }))}
+                />
+              </div>
+
+              {hasActiveFilters && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={clearFilters}
+                  className="h-8 text-xs border-destructive/30 text-destructive/80 hover:border-destructive hover:text-destructive hover:bg-destructive/10 transition-all duration-200 bg-transparent"
+                >
+                  <XIcon className="h-3 w-3 mr-1" />
+                  Clear
+                </Button>
+              )}
+            </div>
+          </div>
         </CardHeader>
         <CardContent className="p-0">
           <div className="tech-grid rounded-md border-0 overflow-hidden">
@@ -156,7 +292,7 @@ export function OptimizationTable({ data }: OptimizationTableProps) {
                     <TableCell>
                       <Badge
                         variant="secondary"
-                        className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 font-mono hover:bg-yellow-500/20 transition-colors"
+                        className="bg-yellow-500/10 text-yellow-800 border border-yellow-500/20 font-mono hover:bg-yellow-500/20 transition-colors"
                       >
                         {row.tokens_saved.toLocaleString()}
                       </Badge>

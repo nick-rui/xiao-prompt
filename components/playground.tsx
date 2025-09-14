@@ -205,10 +205,7 @@ export function Playground() {
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-[400px] text-muted-foreground">
-                  <div className="text-center space-y-3">
-                    <SparklesIcon className="h-12 w-12 mx-auto opacity-50" />
-                    <p className="text-base">Enter a prompt and click "Optimize Prompt" to see results</p>
-                  </div>
+                  <div className="text-center space-y-3"></div>
                 </div>
               )}
             </CardContent>

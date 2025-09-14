@@ -37,7 +37,7 @@ export function SummaryCards({ metrics }: SummaryCardsProps) {
       change: "+15.3%",
       changeType: "positive" as const,
       gradient: "from-yellow-500/20 to-orange-500/20",
-      iconColor: "text-yellow-400",
+      iconColor: "text-yellow-800",
     },
     {
       title: "Total Emissions Saved",

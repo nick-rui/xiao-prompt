@@ -1,6 +1,5 @@
 import { SummaryCards } from "@/components/summary-cards"
 import { OptimizationTable } from "@/components/optimization-table"
-import { FilterBar } from "@/components/filter-bar"
 
 interface DashboardContentProps {
   prompts: any[]
@@ -25,10 +24,7 @@ export function DashboardContent({ prompts, summaryMetrics, uniqueUsers }: Dashb
 
       <SummaryCards metrics={summaryMetrics} />
 
-      <div className="space-y-6">
-        <FilterBar users={uniqueUsers} />
-        <OptimizationTable data={prompts} />
-      </div>
+      <OptimizationTable data={prompts} users={uniqueUsers} />
     </div>
   )
 }
