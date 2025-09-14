@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
 import { PlayIcon, SparklesIcon, TrendingDownIcon, DollarSignIcon, LeafIcon, ZapIcon, CopyIcon, CheckIcon } from "@/components/icons"
-import { calculateEnergyCost, calculateEnergySaved, calculateMoneySaved, calculateEmissionsSaved, ENERGY_CONSTANTS } from "@/lib/constants"
+import { calculateEnergyCostSavings, calculateEnergySaved, calculateMoneySaved, calculateEmissionsSaved, ENERGY_CONSTANTS } from "@/lib/constants"
 
 interface OptimizationResult {
   originalPrompt: string
@@ -355,15 +355,14 @@ export function Playground() {
                     <Button
                       onClick={saveToDatabase}
                       disabled={isSaving}
-                      variant="outline"
                       className={`w-full py-3 transition-all duration-300 transform ${
                         isSaving 
-                          ? 'scale-95 opacity-75 cursor-not-allowed' 
+                          ? 'scale-95 opacity-75 cursor-not-allowed bg-primary/50' 
                           : saveSuccess 
-                          ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200 scale-105 shadow-lg' 
+                          ? 'bg-green-500 hover:bg-green-600 text-white scale-105 shadow-lg' 
                           : buttonClicked
-                          ? 'scale-90 bg-blue-50 border-blue-200'
-                          : 'bg-transparent hover:bg-muted/50 hover:scale-105 hover:shadow-md active:scale-95'
+                          ? 'scale-90 bg-primary/80'
+                          : 'bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-md active:scale-95'
                       }`}
                       size="lg"
                     >

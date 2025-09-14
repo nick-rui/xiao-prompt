@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { calculateEnergyCostSavings, calculateEnergySaved, calculateMoneySaved, calculateEmissionsSaved, ENERGY_CONSTANTS } from '@/lib/constants'
 
 // GET /api/v1/companies/[id]/analytics - Get company analytics
 export async function GET(
@@ -85,6 +86,11 @@ export async function GET(
     const totalTokensSaved = optimizations?.reduce((sum, opt) => sum + opt.tokens_saved, 0) || 0
     const totalCostSaved = optimizations?.reduce((sum, opt) => sum + parseFloat(opt.cost_saved.toString()), 0) || 0
     const averageReduction = totalOriginalTokens > 0 ? (totalTokensSaved / totalOriginalTokens) * 100 : 0
+
+    // Calculate energy and emissions using Massachusetts rates
+    const totalEnergySaved = calculateEnergySaved(totalTokensSaved)
+    const totalEmissionsSaved = calculateEmissionsSaved(totalTokensSaved)
+    const totalEnergyCostSaved = calculateEnergyCostSavings(totalTokensSaved)
 
     // Strategy breakdown
     const strategyBreakdown = optimizations?.reduce((acc, opt) => {
@@ -181,6 +187,9 @@ export async function GET(
         totalOptimizedTokens,
         totalTokensSaved,
         totalCostSaved: Math.round(totalCostSaved * 1000000) / 1000000,
+        totalEnergySaved: Math.round(totalEnergySaved * 100) / 100,
+        totalEmissionsSaved: Math.round(totalEmissionsSaved * 100) / 100,
+        totalEnergyCostSaved: Math.round(totalEnergyCostSaved * 100) / 100,
         averageReduction: Math.round(averageReduction * 100) / 100,
         currentUsage: currentUsage?.current_usage || 0,
         monthlyLimit: currentUsage?.monthly_limit || 0,
@@ -207,6 +216,13 @@ export async function GET(
       },
       topOptimizations,
       billing: billing || [],
+      methodology: {
+        electricityRate: ENERGY_CONSTANTS.ELECTRICITY_COST_PER_KWH,
+        gridCarbonIntensity: ENERGY_CONSTANTS.GRID_CARBON_INTENSITY,
+        energyPerToken: ENERGY_CONSTANTS.ENERGY_PER_TOKEN,
+        costPerToken: ENERGY_CONSTANTS.COST_PER_TOKEN,
+        note: "Energy costs calculated using Massachusetts average electricity rate and grid carbon intensity"
+      },
       timestamp: new Date().toISOString()
     })
 
