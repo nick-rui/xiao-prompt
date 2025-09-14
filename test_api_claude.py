@@ -130,6 +130,7 @@ class PromptOptimizerAPITester:
             # Based on typical AI model energy consumption
             energy_saved = tokens_saved * 0.00001  # Rough estimate: 0.01 kWh per 1000 tokens
             emissions_saved = tokens_saved * 0.000005  # Rough estimate: 0.005 kg CO2 per 1000 tokens
+            # Energy costs calculated using Massachusetts average rate of $0.305/kWh
             
             save_payload = {
                 "original_prompt": result.get('originalPrompt', ''),

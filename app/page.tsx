@@ -314,6 +314,11 @@ export default function LandingPage() {
                     <Badge>{text.validation.sustainabilityGains.processingSpeedValue}</Badge>
                   </div>
                 </div>
+                <div className="mt-4 pt-3 border-t border-border/30">
+                  <p className="text-xs text-muted-foreground">
+                    Energy costs calculated using Massachusetts average electricity rate of $0.305/kWh
+                  </p>
+                </div>
               </CardContent>
             </Card>
 
