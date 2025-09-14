@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRightIcon, CheckIcon, CodeIcon, BarChartIcon, ZapIcon, ArrowDownIcon, ArrowDownLeftIcon, ArrowDownRightIcon } from "@/components/icons"
+import { ArrowRightIcon, CheckIcon, CodeIcon, BarChartIcon, ZapIcon, ArrowDownIcon, ArrowDownLeftIcon, ArrowDownRightIcon, BookIcon } from "@/components/icons"
 import { useLocalization } from "@/lib/use-localization"
 import { Navigation } from "@/components/navigation"
 import Link from "next/link"
@@ -109,6 +109,32 @@ export default function LandingPage() {
                   </p>
                 </Card>
               </div>
+            </div>
+            
+            {/* Research Paper Link */}
+            <div className="text-center mt-12">
+              <Card className="neon-border border-primary/50 glow-effect max-w-sm mx-auto">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-center space-x-3">
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <BookIcon className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="font-bold text-primary text-sm">Research Paper</h3>
+                      <p className="text-xs text-muted-foreground">Read our detailed methodology</p>
+                    </div>
+                    <a 
+                      href="/xiaoprompt_paper.pdf" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="ml-auto bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors duration-200 flex items-center space-x-1"
+                    >
+                      <span className="text-xs font-medium">View PDF</span>
+                      <ArrowRightIcon className="w-3 h-3" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
