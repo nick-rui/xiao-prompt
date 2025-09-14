@@ -8,6 +8,7 @@ import requests
 import json
 import time
 from typing import Dict, Any
+from test_constants import calculate_energy_saved, calculate_emissions_saved, calculate_energy_cost_savings, calculate_money_saved
 
 class PromptOptimizerAPITester:
     def __init__(self, base_url: str = "http://localhost:3000"):
@@ -126,10 +127,13 @@ class PromptOptimizerAPITester:
             tokens_saved = metrics.get('tokensSaved', 0)
             cost_saved = metrics.get('estimatedCostSavings', 0)
             
-            # Calculate energy and emissions savings (rough estimates)
-            # Based on typical AI model energy consumption
-            energy_saved = tokens_saved * 0.00001  # Rough estimate: 0.01 kWh per 1000 tokens
-            emissions_saved = tokens_saved * 0.000005  # Rough estimate: 0.005 kg CO2 per 1000 tokens
+            # Calculate energy and emissions savings using centralized constants
+            # Money saved: $0.002 per token (as requested)
+            # Energy saved: 0.04 kWh per 1000 tokens (from sample data)
+            # Emissions: Using original rate (0.0000267 kg CO2 per token)
+            energy_saved = calculate_energy_saved(tokens_saved)
+            emissions_saved = calculate_emissions_saved(tokens_saved)
+            # Energy costs calculated using Massachusetts average rate of $0.305/kWh
             
             save_payload = {
                 "original_prompt": result.get('originalPrompt', ''),

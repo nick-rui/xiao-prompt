@@ -31,9 +31,9 @@ INSERT INTO public.prompts (
   45,
   15,
   30,
-  0.0045,
+  0.06,
   0.0012,
-  0.0008,
+  0.0004992,
   'Sarah Chen'
 ),
 (

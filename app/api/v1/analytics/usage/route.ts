@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { calculateEnergyCostSavings, calculateEnergySaved, calculateMoneySaved, calculateEmissionsSaved, ENERGY_CONSTANTS } from '@/lib/constants'
 
 export async function GET(request: NextRequest) {
   try {
@@ -61,9 +62,14 @@ export async function GET(request: NextRequest) {
     // Calculate metrics
     const totalOptimizations = prompts?.length || 0
     const totalTokensSaved = prompts?.reduce((sum, p) => sum + (p.tokens_saved || 0), 0) || 0
-    const totalMoneySaved = prompts?.reduce((sum, p) => sum + (p.money_saved || 0), 0) || 0
-    const totalEnergySaved = prompts?.reduce((sum, p) => sum + (p.energy_saved || 0), 0) || 0
-    const totalEmissionsSaved = prompts?.reduce((sum, p) => sum + (p.emissions_saved || 0), 0) || 0
+    
+    // Recalculate using Massachusetts rates for consistency
+    const totalMoneySaved = calculateMoneySaved(totalTokensSaved)
+    const totalEnergySaved = calculateEnergySaved(totalTokensSaved)
+    const totalEmissionsSaved = calculateEmissionsSaved(totalTokensSaved)
+    
+    // Calculate energy cost savings using Massachusetts electricity rate
+    const totalEnergyCostSaved = calculateEnergyCostSavings(totalTokensSaved)
     
     // Calculate average reduction percentage
     const validPrompts = prompts?.filter(p => p.original_tokens > 0) || []
@@ -83,14 +89,14 @@ export async function GET(request: NextRequest) {
     }
     
     // Get daily usage trends
-    const dailyUsage = {}
+    const dailyUsage: Record<string, number> = {}
     prompts?.forEach(prompt => {
       const date = new Date(prompt.created_at).toISOString().split('T')[0]
       dailyUsage[date] = (dailyUsage[date] || 0) + 1
     })
     
     // Get top users
-    const userStats = {}
+    const userStats: Record<string, { optimizations: number; tokensSaved: number }> = {}
     prompts?.forEach(prompt => {
       const user = prompt.user_name || 'Anonymous'
       if (!userStats[user]) {
@@ -124,6 +130,7 @@ export async function GET(request: NextRequest) {
         totalMoneySaved: Math.round(totalMoneySaved * 100) / 100,
         totalEnergySaved: Math.round(totalEnergySaved * 100) / 100,
         totalEmissionsSaved: Math.round(totalEmissionsSaved * 100) / 100,
+        totalEnergyCostSaved: Math.round(totalEnergyCostSaved * 100) / 100,
         averageReduction: Math.round(averageReduction * 10) / 10
       },
       breakdown: {
@@ -133,6 +140,13 @@ export async function GET(request: NextRequest) {
       },
       trends: {
         dailyUsage: Object.entries(dailyUsage).map(([date, count]) => ({ date, count }))
+      },
+      methodology: {
+        electricityRate: ENERGY_CONSTANTS.ELECTRICITY_COST_PER_KWH,
+        gridCarbonIntensity: ENERGY_CONSTANTS.GRID_CARBON_INTENSITY,
+        energyPerToken: ENERGY_CONSTANTS.ENERGY_PER_TOKEN,
+        costPerToken: ENERGY_CONSTANTS.COST_PER_TOKEN,
+        note: "Energy costs calculated using Massachusetts average electricity rate and grid carbon intensity"
       },
       timestamp: new Date().toISOString()
     }

@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
 import { PlayIcon, SparklesIcon, TrendingDownIcon, DollarSignIcon, LeafIcon, ZapIcon, CopyIcon, CheckIcon } from "@/components/icons"
+import { calculateEnergyCostSavings, calculateEnergySaved, calculateMoneySaved, calculateEmissionsSaved, ENERGY_CONSTANTS } from "@/lib/constants"
 
 interface OptimizationResult {
   originalPrompt: string
@@ -94,9 +95,9 @@ export function Playground() {
         originalTokens,
         optimizedTokens,
         tokensSaved,
-        moneySaved: tokensSaved * 0.002, // $0.002 per token saved
-        energySaved: tokensSaved * 0.001, // Energy calculation
-        emissionsSaved: tokensSaved * 0.0005, // Emissions calculation
+        moneySaved: calculateMoneySaved(tokensSaved),
+        energySaved: calculateEnergySaved(tokensSaved),
+        emissionsSaved: calculateEmissionsSaved(tokensSaved),
         improvementPercentage,
       }
 
@@ -127,9 +128,9 @@ export function Playground() {
         originalTokens,
         optimizedTokens,
         tokensSaved,
-        moneySaved: tokensSaved * 0.002,
-        energySaved: tokensSaved * 0.001,
-        emissionsSaved: tokensSaved * 0.0005,
+        moneySaved: calculateMoneySaved(tokensSaved),
+        energySaved: calculateEnergySaved(tokensSaved),
+        emissionsSaved: calculateEmissionsSaved(tokensSaved),
         improvementPercentage,
       }
 
@@ -334,6 +335,9 @@ export function Playground() {
                           <span className="text-sm font-semibold">Energy Saved</span>
                         </div>
                         <div className="text-xl font-bold text-emerald-500">{result.energySaved.toFixed(3)} kWh</div>
+                        <div className="text-xs text-muted-foreground">
+                          Energy costs calculated using Massachusetts average rate of ${ENERGY_CONSTANTS.ELECTRICITY_COST_PER_KWH}/kWh
+                        </div>
                       </div>
 
                       <div className="space-y-3">
@@ -351,15 +355,14 @@ export function Playground() {
                     <Button
                       onClick={saveToDatabase}
                       disabled={isSaving}
-                      variant="outline"
-                      className={`w-full py-3 transition-all duration-300 transform ${
+                      className={`w-full py-2.5 transition-all duration-300 transform ${
                         isSaving 
-                          ? 'scale-95 opacity-75 cursor-not-allowed' 
+                          ? 'scale-95 opacity-75 cursor-not-allowed bg-primary/50' 
                           : saveSuccess 
-                          ? 'bg-green-100 border-green-300 text-green-800 hover:bg-green-200 scale-105 shadow-lg' 
+                          ? 'bg-green-500 hover:bg-green-600 text-white scale-105 shadow-lg' 
                           : buttonClicked
-                          ? 'scale-90 bg-blue-50 border-blue-200'
-                          : 'bg-transparent hover:bg-muted/50 hover:scale-105 hover:shadow-md active:scale-95'
+                          ? 'scale-90 bg-primary/80'
+                          : 'bg-primary hover:bg-primary/90 hover:scale-105 hover:shadow-md active:scale-95'
                       }`}
                       size="lg"
                     >
