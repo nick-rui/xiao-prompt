@@ -16,9 +16,9 @@ export function DashboardContent({ prompts, summaryMetrics, uniqueUsers }: Dashb
   return (
     <div className="space-y-8">
       <div className="space-y-3">
-        <h1 className="text-3xl font-bold tracking-tight text-balance">Prompt Optimization Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-balance">XiaoPrompt Optimization Dashboard</h1>
         <p className="text-muted-foreground text-pretty">
-          Track and analyze your AI prompt optimization results to improve efficiency and reduce costs.
+          Track and analyze your AI prompt optimization results to improve efficiency, reduce costs, and reduce emissions.
         </p>
       </div>
 

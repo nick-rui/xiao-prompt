@@ -174,10 +174,10 @@ export function Playground() {
       <div className="space-y-8">
         {/* Header Section */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold tracking-tight text-balance">Prompt Optimization Playground</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-balance">XiaoPrompt Optimization Playground</h1>
           <p className="text-muted-foreground text-pretty max-w-2xl">
             Optimize prompts for AI image generation (Google Imagen, DALL-E, Midjourney) and other AI models. 
-            See how our advanced optimization reduces token usage and costs while maintaining quality.
+            See how our advanced optimization reduces emissions, token usage, and costs while maintaining quality.
           </p>
         </div>
 
