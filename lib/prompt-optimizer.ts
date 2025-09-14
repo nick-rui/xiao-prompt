@@ -129,14 +129,26 @@ export class PromptOptimizer {
       let translationResult;
       let translationStats;
       
+      console.log('🔍 Translation check:', { 
+        translateToChinese: options.translateToChinese,
+        defaultBehavior: 'translateToChinese !== false (defaults to true)'
+      });
+      
       if (options.translateToChinese !== false) { // Default to true
+        console.log('🌐 Starting Chinese translation...');
         translationResult = await this.translateToChinese(distillationResult.distilledPrompt);
+        console.log('✅ Translation completed:', {
+          original: translationResult.originalText,
+          translated: translationResult.translatedText,
+          confidence: translationResult.confidence
+        });
         translationStats = await this.calculateTokenStats(
           'translation',
           distillationResult.distilledPrompt,
           translationResult.translatedText
         );
       } else {
+        console.log('⏭️ Skipping translation (translateToChinese is false)');
         // Skip translation, use distilled prompt as final output
         translationResult = {
           originalText: distillationResult.distilledPrompt,
@@ -246,71 +258,54 @@ export class PromptOptimizer {
     const model = options.model || 'claude-3-haiku-20240307';
     const temperature = options.temperature || 0.3;
 
-    const systemPrompt = `You are a world-class prompt optimization expert specializing in creating highly efficient, concise prompts for AI image generation (like Google Imagen, DALL-E, Midjourney) and other AI models. Your expertise lies in transforming verbose, unclear prompts into precise, actionable instructions that maximize AI performance while minimizing token usage and costs.
+    const systemPrompt = `You are an expert prompt optimizer specializing in eliminating unnecessary verbosity and politeness while preserving all essential meaning. Your goal is to dramatically reduce token count by removing redundant language, excessive politeness, and verbose expressions.
 
-CORE OPTIMIZATION PRINCIPLES:
+AGGRESSIVE VERBOSITY REDUCTION:
 
-🎯 CLARITY & PRECISION:
-- Replace vague language with specific, actionable terms
-- Use concrete nouns instead of abstract concepts
-- Eliminate ambiguous qualifiers ("somewhat," "kind of," "maybe")
-- Specify exact quantities, formats, and constraints when relevant
+🚫 ELIMINATE POLITENESS OVERKILL:
+- Remove: "I would be extremely grateful," "please kindly," "if it would not be too much trouble," "I sincerely appreciate"
+- Remove: "I would like," "I would love," "I would really appreciate it if you could"
+- Remove: "Could you please," "Would you mind," "I was wondering if you could"
+- Remove: "Thank you in advance," "Thanks so much," "I really appreciate your time"
 
-⚡ EFFICIENCY & CONCISION:
-- Remove filler words: "please," "could you," "I was wondering if," "it would be great if," "if possible," "when you have time"
-- Eliminate redundancy: "summarize and give me the main points" → "summarize"
-- Combine related concepts: "various different methods and approaches" → "methods"
-- Use active voice over passive voice
-- Replace phrases with single words when possible
+⚡ CUT REDUNDANT INTENSIFIERS:
+- Remove: "truly magnificent," "absolutely stunning," "incredibly beautiful," "exceptionally high-quality"
+- Remove: "completely photorealistic," "wonderfully serene," "incredibly peaceful"
+- Remove: "absolutely pristine," "perfectly mirror," "incredible detail"
+- Keep only ONE intensifier: "beautiful" not "absolutely stunning and incredibly beautiful"
 
-🎪 STRUCTURE & ORGANIZATION:
-- Lead with the primary action or goal
-- Group related instructions together
-- Use clear separators (bullets, numbers) for multiple requirements
-- Prioritize information by importance
-- Maintain logical flow from general to specific
+🎯 STREAMLINE DESCRIPTIONS:
+- "crystal clear, absolutely pristine, and beautifully reflective blue lakes" → "crystal clear blue lakes"
+- "majestic, awe-inspiring snow-capped mountain peaks" → "snow-capped mountain peaks"
+- "absolutely spectacular dramatic golden hour lighting" → "golden hour lighting"
+- "perfect cinematic composition principles with impeccable rule of thirds" → "cinematic composition, rule of thirds"
 
-🔧 TECHNICAL EXCELLENCE:
-- Preserve all critical constraints, formats, and specifications
-- Maintain any required output structure or formatting
-- Keep essential context that affects the task outcome
-- Preserve technical terminology and domain-specific language
-- Maintain the appropriate level of formality for the context
+🔧 PRESERVE TECHNICAL SPECS:
+- Keep: resolution (8K), style (photorealistic), format (desktop wallpaper)
+- Keep: technical terms (DSLR, golden hour, rule of thirds)
+- Keep: specific requirements (mountain landscape, lakes, peaks)
 
-🚫 WHAT TO REMOVE:
-- Pleasantries and social niceties ("Hope this helps," "Thanks in advance")
-- Redundant explanations of obvious concepts
-- Unnecessary background information
-- Overly complex sentence structures
-- Emotional language that doesn't affect the task
+📝 CONVERSION PATTERNS:
+- "I would like the composition to follow" → "Composition:"
+- "The resolution should be" → "8K resolution"
+- "The style should be" → "Professional photography style"
+- "This image should be shot with" → "Shot with DSLR"
+- "I sincerely appreciate your time and effort" → [REMOVE ENTIRELY]
 
-✅ WHAT TO PRESERVE:
-- All actionable instructions and requirements
-- Specific constraints, formats, or limitations
-- Essential context that affects interpretation
-- Technical specifications and parameters
-- Tone appropriate to the use case (professional, casual, etc.)
+🎯 OPTIMIZATION GOALS:
+- Reduce token count by 60-80%
+- Maintain all essential visual and technical requirements
+- Keep the core request intact
+- Remove ALL unnecessary politeness and redundancy
+- Use comma-separated lists for multiple descriptors
 
-EXAMPLES OF OPTIMIZATION:
+EXAMPLES:
 
-📸 IMAGE GENERATION PROMPTS:
-❌ "Please create a beautiful, high-quality, professional image of a serene mountain landscape with crystal clear lakes, majestic peaks, golden hour lighting, cinematic composition, 8K resolution, photorealistic style, perfect for desktop wallpaper"
-✅ "Serene mountain landscape, crystal clear lakes, majestic peaks, golden hour lighting, cinematic composition, 8K, photorealistic"
+❌ VERBOSE: "I would be extremely grateful if you could please kindly create for me, if it would not be too much trouble, a truly magnificent, absolutely stunning, incredibly beautiful, exceptionally high-quality, professional-grade, and completely photorealistic digital image..."
 
-❌ "Could you please generate an amazing, stunning, incredible portrait of a young woman with beautiful eyes, perfect skin, elegant makeup, professional photography lighting, high resolution, studio quality"
-✅ "Portrait of young woman, beautiful eyes, elegant makeup, professional studio lighting, high resolution"
+✅ OPTIMIZED: "Create photorealistic mountain landscape, crystal clear blue lakes, snow-capped peaks, golden hour lighting, 8K, DSLR, desktop wallpaper"
 
-🔤 TEXT/ANALYSIS PROMPTS:
-❌ "Could you please help me analyze this data and provide some insights and recommendations if possible?"
-✅ "Analyze this data and provide insights with recommendations."
-
-❌ "I was wondering if you could maybe summarize the main points and give me a brief overview?"
-✅ "Summarize the main points."
-
-❌ "What do you think about the possibility of implementing various different approaches to solve this problem?"
-✅ "Should I implement these approaches to solve this problem?"
-
-Your output should be ONLY the optimized prompt - no explanations, no commentary, no meta-text. Focus on creating the most efficient, clear, and actionable version possible while preserving all essential meaning and requirements.`;
+Your output should be ONLY the optimized prompt - no explanations, no commentary, no meta-text. Focus on aggressively removing verbosity while preserving all essential requirements.`;
 
     const response = await this.anthropic.messages.create({
       model,
@@ -345,9 +340,12 @@ Your output should be ONLY the optimized prompt - no explanations, no commentary
    * Translate text to Chinese using free translation service
    */
   private async translateToChinese(text: string) {
+    console.log('🔄 Attempting translation:', { text, length: text.length });
+    
     try {
       // Use LibreTranslate (free, open-source translation API)
       const translation = await this.translateWithLibreTranslate(text, 'en', 'zh');
+      console.log('✅ Translation successful:', translation);
       
       return {
         originalText: text,
@@ -357,7 +355,7 @@ Your output should be ONLY the optimized prompt - no explanations, no commentary
         confidence: 0.9
       };
     } catch (error) {
-      console.warn('Translation failed, using fallback:', error);
+      console.warn('❌ Translation failed, using fallback:', error);
       // Fallback to simple mock translation
       return {
         originalText: text,
@@ -396,13 +394,17 @@ Your output should be ONLY the optimized prompt - no explanations, no commentary
    * MyMemory Translation API (free, no API key required)
    */
   private async translateWithMyMemory(text: string, sourceLang: string, targetLang: string): Promise<string> {
+    console.log('🌐 Trying MyMemory translation...');
     const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}`);
     const data = await response.json();
     
+    console.log('📡 MyMemory response:', { status: data.responseStatus, hasTranslation: !!data.responseData?.translatedText });
+    
     if (data.responseStatus === 200 && data.responseData?.translatedText) {
+      console.log('✅ MyMemory translation successful:', data.responseData.translatedText);
       return data.responseData.translatedText;
     }
-    throw new Error('MyMemory translation failed');
+    throw new Error(`MyMemory translation failed: ${data.responseStatus}`);
   }
 
   /**
@@ -452,6 +454,13 @@ Your output should be ONLY the optimized prompt - no explanations, no commentary
     const reduction = inputTokens - outputTokens;
     const reductionPercentage = inputTokens > 0 ? (reduction / inputTokens) * 100 : 0;
 
+    console.log(`📊 Token stats for ${stage}:`, {
+      inputTokens,
+      outputTokens,
+      reduction,
+      reductionPercentage: Math.round(reductionPercentage * 100) / 100
+    });
+
     return {
       stage,
       inputTokens,
@@ -462,89 +471,31 @@ Your output should be ONLY the optimized prompt - no explanations, no commentary
   }
 
   /**
-   * Accurate token counting with language-aware estimation
+   * Accurate token counting using Anthropic's official tokenizer
    */
   private async countTokens(text: string): Promise<number> {
     if (!text) return 0;
     
-    // Detect language and use appropriate token counting
-    const language = this.detectLanguage(text);
-    
-    if (language === 'chinese' || language === 'japanese' || language === 'korean') {
-      // For Asian languages, use more accurate estimation since Anthropic's tokenizer
-      // may not be optimized for these languages
-      return this.estimateTokensByLanguage(text);
-    } else {
-      // For English and other languages, use Anthropic's official tokenizer
-      try {
-        const response = await this.anthropic.messages.countTokens({
-          model: 'claude-3-haiku-20240307',
-          messages: [
-            {
-              role: 'user',
-              content: text
-            }
-          ]
-        });
+    try {
+      const response = await this.anthropic.messages.countTokens({
+        model: 'claude-3-haiku-20240307',
+        messages: [
+          {
+            role: 'user',
+            content: text
+          }
+        ]
+      });
 
-        return response.input_tokens;
-      } catch (error) {
-        console.warn('Failed to get accurate token count, using estimation:', error);
-        return this.estimateTokensByLanguage(text);
-      }
-    }
-  }
-
-  /**
-   * Detect the primary language of the text
-   */
-  private detectLanguage(text: string): string {
-    const chineseChars = (text.match(/[\u4e00-\u9fff]/g) || []).length;
-    const japaneseChars = (text.match(/[\u3040-\u309f\u30a0-\u30ff]/g) || []).length;
-    const koreanChars = (text.match(/[\uac00-\ud7af]/g) || []).length;
-    const totalAsianChars = chineseChars + japaneseChars + koreanChars;
-    
-    if (chineseChars > 0 && chineseChars >= japaneseChars && chineseChars >= koreanChars) {
-      return 'chinese';
-    } else if (japaneseChars > 0 && japaneseChars >= koreanChars) {
-      return 'japanese';
-    } else if (koreanChars > 0) {
-      return 'korean';
-    } else {
-      return 'english';
-    }
-  }
-
-  /**
-   * Language-aware token estimation
-   */
-  private estimateTokensByLanguage(text: string): number {
-    if (!text) return 0;
-    
-    const chineseChars = (text.match(/[\u4e00-\u9fff]/g) || []).length;
-    const japaneseChars = (text.match(/[\u3040-\u309f\u30a0-\u30ff]/g) || []).length;
-    const koreanChars = (text.match(/[\uac00-\ud7af]/g) || []).length;
-    const totalAsianChars = chineseChars + japaneseChars + koreanChars;
-    
-    if (totalAsianChars > 0) {
-      // Asian languages are more token-efficient
-      // Chinese: ~1 token per character (very efficient)
-      // Japanese: ~1.2 tokens per character  
-      // Korean: ~1.3 tokens per character
-      // Other characters (spaces, punctuation): ~0.2 tokens per character
-      const otherChars = text.length - totalAsianChars;
-      
-      const chineseTokens = chineseChars * 1.0;
-      const japaneseTokens = japaneseChars * 1.2;
-      const koreanTokens = koreanChars * 1.3;
-      const otherTokens = otherChars * 0.2;
-      
-      return Math.ceil(chineseTokens + japaneseTokens + koreanTokens + otherTokens);
-    } else {
-      // English and other languages: ~4 characters per token
+      console.log(`🔢 Anthropic token count: ${response.input_tokens} tokens for text: "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`);
+      return response.input_tokens;
+    } catch (error) {
+      console.warn('Failed to get accurate token count from Anthropic, using fallback estimation:', error);
+      // Fallback to simple estimation
       return Math.ceil(text.length / 4);
     }
   }
+
 
   /**
    * Generate unique ID for pipeline tracking

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { NavigationTabs } from "@/components/navigation-tabs"
 import { Playground } from "@/components/playground"
 import { DashboardContent } from "@/components/dashboard-content"
+import { APIGuide } from "@/components/api-guide"
 
 interface DashboardWrapperProps {
   prompts: any[]
@@ -25,8 +26,10 @@ export function DashboardWrapper({ prompts, summaryMetrics, uniqueUsers }: Dashb
       <main className="container mx-auto px-6 py-8">
         {activeTab === "dashboard" ? (
           <DashboardContent prompts={prompts} summaryMetrics={summaryMetrics} uniqueUsers={uniqueUsers} />
-        ) : (
+        ) : activeTab === "playground" ? (
           <Playground />
+        ) : (
+          <APIGuide />
         )}
       </main>
     </>

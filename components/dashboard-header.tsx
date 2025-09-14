@@ -17,6 +17,7 @@ export function DashboardHeader() {
               <span className="text-xs text-muted-foreground font-mono tracking-wider">AI EFFICIENCY PLATFORM</span>
             </div>
           </div>
+          
         </div>
 
         <DropdownMenu>

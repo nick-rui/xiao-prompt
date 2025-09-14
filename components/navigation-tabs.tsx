@@ -33,6 +33,17 @@ export function NavigationTabs({ activeTab, onTabChange }: NavigationTabsProps) 
           >
             Playground
           </button>
+          <button
+            onClick={() => onTabChange("api")}
+            className={cn(
+              "py-4 px-1 border-b-2 font-medium text-sm transition-colors",
+              activeTab === "api"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground hover:border-border",
+            )}
+          >
+            API Guide
+          </button>
         </div>
       </nav>
     </div>

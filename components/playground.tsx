@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
-import { PlayIcon, SparklesIcon, TrendingDownIcon, DollarSignIcon, LeafIcon, ZapIcon } from "@/components/icons"
+import { PlayIcon, SparklesIcon, TrendingDownIcon, DollarSignIcon, LeafIcon, ZapIcon, CopyIcon, CheckIcon } from "@/components/icons"
 
 interface OptimizationResult {
   originalPrompt: string
@@ -25,6 +25,17 @@ export function Playground() {
   const [isOptimizing, setIsOptimizing] = useState(false)
   const [result, setResult] = useState<OptimizationResult | null>(null)
   const [displayedOriginalTokens, setDisplayedOriginalTokens] = useState<number | null>(null)
+  const [copied, setCopied] = useState(false)
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000) // Reset after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
 
   const optimizePrompt = async () => {
     if (!prompt.trim()) return
@@ -32,16 +43,19 @@ export function Playground() {
     setIsOptimizing(true)
 
     try {
-      // Call the server-side API route that uses the prompt optimizer
-      const response = await fetch('/api/optimize-prompt', {
+      // Use the new v1 API with enhanced features
+      const response = await fetch('/api/v1/optimize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer demo' // In production, use real API key
         },
         body: JSON.stringify({
           prompt: prompt,
-          useOptimizer: true, // Flag to use the enhanced prompt optimizer
-          translateToChinese: true // Enable translation to Chinese
+          strategy: 'concise', // Use the new strategy system
+          targetLanguage: 'zh', // Enable Chinese translation
+          includeMetrics: true,
+          model: 'claude-3-haiku-20240307'
         }),
       })
 
@@ -51,18 +65,21 @@ export function Playground() {
 
       const result = await response.json()
       
-      // Use accurate token counts from server-side API
-      const originalTokens = result.originalTokens
-      const optimizedTokens = result.optimizedTokens
-      const tokensSaved = originalTokens - optimizedTokens
-      const improvementPercentage = Math.round((tokensSaved / originalTokens) * 100)
+      // Use the new API response structure
+      const originalTokens = result.metrics?.originalTokens || 0
+      const optimizedTokens = result.metrics?.optimizedTokens || 0
+      const tokensSaved = result.metrics?.tokensSaved || 0
+      const improvementPercentage = result.metrics?.reductionPercentage || 0
       
-      console.log('✅ API SUCCESS: Using server-side prompt optimizer')
+      console.log('✅ API v1 SUCCESS: Using enhanced prompt optimizer')
       console.log('📊 API METRICS:', {
+        optimizationId: result.id,
+        strategy: result.strategy,
         originalTokens,
         optimizedTokens,
         tokensSaved,
-        improvementPercentage
+        improvementPercentage,
+        processingTime: result.metrics?.processingTimeMs
       })
 
       // Update the displayed token count to match API accuracy
@@ -179,7 +196,7 @@ export function Playground() {
             </CardHeader>
             <CardContent className="space-y-6">
               <Textarea
-                placeholder="Enter your AI prompt here... (Try the 'Load Example' button for a very detailed image generation prompt that shows dramatic optimization results)"
+                placeholder="Enter your AI prompt here... (Try the 'Load Example' button for an extremely verbose prompt that demonstrates dramatic token reduction through optimization)"
                 value={prompt}
                 onChange={(e) => {
                   setPrompt(e.target.value)
@@ -193,7 +210,7 @@ export function Playground() {
                     {displayedOriginalTokens ? `~${displayedOriginalTokens} tokens` : `~${Math.ceil(prompt.length / 4)} tokens`}
                   </div>
                   <Button
-                    onClick={() => setPrompt("Please create a beautiful, stunning, high-quality, professional, photorealistic image of a serene and peaceful mountain landscape with crystal clear, pristine blue lakes reflecting the majestic snow-capped peaks, dramatic golden hour lighting with warm orange and pink hues, cinematic composition with perfect rule of thirds, 8K ultra-high resolution, professional photography style, perfect for desktop wallpaper, shot with a professional DSLR camera, with incredible detail and sharpness, showcasing the natural beauty of untouched wilderness")}
+                    onClick={() => setPrompt("I would be extremely grateful if you could please kindly take the time to create for me, if it would not be too much trouble, a truly magnificent, absolutely stunning, incredibly beautiful, exceptionally high-quality, professional-grade, and completely photorealistic digital image that depicts a wonderfully serene and incredibly peaceful mountain landscape scene. This landscape should feature crystal clear, absolutely pristine, and beautifully reflective blue lakes that perfectly mirror and reflect the majestic, awe-inspiring snow-capped mountain peaks in their entirety. The lighting should be absolutely spectacular dramatic golden hour lighting with wonderfully warm orange and pink hues that create an atmosphere of pure magic. I would like the composition to follow perfect cinematic composition principles with an impeccable rule of thirds arrangement. The resolution should be an outstanding 8K ultra-high resolution that provides incredible detail. The style should be professional photography style that would be absolutely perfect for use as a desktop wallpaper. This image should be shot with a professional DSLR camera and should feature incredible detail and sharpness throughout, truly showcasing the natural beauty of completely untouched wilderness areas. I sincerely appreciate your time and effort in creating this image for me.")}
                     variant="outline"
                     size="sm"
                     className="text-xs"
@@ -241,7 +258,27 @@ export function Playground() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <label className="text-sm font-semibold text-foreground">Optimized Prompt</label>
-                      <div className="text-sm text-muted-foreground font-mono">~{result.optimizedTokens} tokens</div>
+                      <div className="flex items-center gap-3">
+                        <div className="text-sm text-muted-foreground font-mono">~{result.optimizedTokens} tokens</div>
+                        <Button
+                          onClick={() => copyToClipboard(result.optimizedPrompt)}
+                          variant="outline"
+                          size="sm"
+                          className="h-8 px-3 text-xs"
+                        >
+                          {copied ? (
+                            <>
+                              <CheckIcon className="h-3 w-3 mr-1" />
+                              Copied!
+                            </>
+                          ) : (
+                            <>
+                              <CopyIcon className="h-3 w-3 mr-1" />
+                              Copy
+                            </>
+                          )}
+                        </Button>
+                      </div>
                     </div>
                     <div className="p-4 bg-background/50 border border-border/50 rounded-lg text-sm leading-relaxed">
                       {result.optimizedPrompt}
