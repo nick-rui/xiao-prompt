@@ -5,6 +5,7 @@ import { NavigationTabs } from "@/components/navigation-tabs"
 import { Playground } from "@/components/playground"
 import { DashboardContent } from "@/components/dashboard-content"
 import { APIGuide } from "@/components/api-guide"
+import { EvaluationPlayground } from "@/components/evaluation-playground"
 
 interface DashboardWrapperProps {
   prompts: any[]
@@ -28,6 +29,8 @@ export function DashboardWrapper({ prompts, summaryMetrics, uniqueUsers }: Dashb
           <DashboardContent prompts={prompts} summaryMetrics={summaryMetrics} uniqueUsers={uniqueUsers} />
         ) : activeTab === "playground" ? (
           <Playground />
+        ) : activeTab === "evaluation" ? (
+          <EvaluationPlayground />
         ) : (
           <APIGuide />
         )}

@@ -44,6 +44,18 @@ export function NavigationTabs({ activeTab, onTabChange }: NavigationTabsProps) 
           >
             API Guide
           </button>
+          <div className="flex-1" />
+          <button
+            onClick={() => onTabChange("evaluation")}
+            className={cn(
+              "py-4 px-1 border-b-2 font-medium text-sm transition-colors",
+              activeTab === "evaluation"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground hover:border-border",
+            )}
+          >
+            Evaluation
+          </button>
         </div>
       </nav>
     </div>
