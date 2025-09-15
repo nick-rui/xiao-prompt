@@ -1,37 +1,45 @@
+### Inspiration
 
-# Prompt optimization dashboard
+Witnessing irresponsible energy use amidst the AI hype, the InfoSys workshop, and coming across a linguistics paper about Chinese prompts being more token-efficient (+ not being able to consolidate our prompts because we keep yapping to Wispr Flow).
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+### What it does
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/danicasuns-projects-b1d6e0d8/v0-prompt-optimization-dashboard)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/V3etirfF4Yy)
+We reduce token usage by 53% while maintaining over 96% model output accuracy. The raw text prompt is first distilled by a relatively lightweight LLM (Claude Haiku) before being translated into Chinese, which is 25-40% more token-efficient than English. We built an API that integrates seamlessly into any AI workflow and a dashboard displaying your reduced carbon footprint!
 
-## Overview
+(The Chinese feature is toggleable, in case developers want to ensure their prompts are English. For prompting image generation models, for example, the language of a prompt matters less.)
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+### How we built it
 
-## Deployment
+- Frontend: React, Tailwind
+- Backend: Typescript, Supabase
+- Models: Claude Haiku, googletrans (python library)
+- Dev Tools: Wispr Flow, Cursor, Claude Code, V0, Vercel
+- Research: Perplexity, Overleaf
 
-Your project is live at:
+### Individual Contributions
 
-**[https://vercel.com/danicasuns-projects-b1d6e0d8/v0-prompt-optimization-dashboard](https://vercel.com/danicasuns-projects-b1d6e0d8/v0-prompt-optimization-dashboard)**
+- Nick: Backend, API, landing page
+- Sandra: Image evaluation research, landing page
+- Fatimah: Token usage research, pitch, demo video
+- Danica: Sustainability research, dashboard, playground, database
 
-## Build your app
+### Challenges we ran into
 
-Continue building your app on:
+- Finding energy-efficient prompt-enhancing workflows. We didn't want overhead work to cost more energy than we save with the token reduction. We strategically chose a lightweight model (Claude Haiku) and googletrans library instead of the Google Cloud API. After doing the math, we found we needed to reduce token usage by 9.7% to break even, and we do much more than that!
+- Objectively measuring the results of raw prompt outputs vs. condensed prompt outputs. We implemented an image-contains-text (ICT) framework to evaluate how our prompts performed with Gemini's Nano Banana.
+- Getting kicked out of Stud at 2am :(
 
-**[https://v0.app/chat/projects/V3etirfF4Yy](https://v0.app/chat/projects/V3etirfF4Yy)**
+### Accomplishments that we're proud of
 
-## How It Works
+- Saved 0.3 kWh of energy using our own product to build our frontend!
+- Developing multiple ways to interact with our product: demo playground, API, and dashboard.
+- Pivoting from a dating app to this.
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+### What we learned
 
+- Data centers are the fastest-growing source of demand for energy.
+- Some languages are more "linguistically optimal" than others.
 
+What's next for our project
 
-
-:)
-:)
+Expand our API to embed itself within agentic workflows. We want agents talking to each other in condensed Chinese!
